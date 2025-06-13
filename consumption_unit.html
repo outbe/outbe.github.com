@@ -25,6 +25,33 @@
       </script>
 
     <style>
+	     @media (max-width: 768px) {
+             nav {
+                flex-direction: row !important;
+                align-items: flex-start !important; /* Прижимает к верху */
+                justify-content: flex-start !important; /* Или center если хотите по центру */
+                flex-wrap: nowrap;
+                overflow-x: auto; /* На случай если не помещается */
+            }
+
+            .documentation-title {
+                display: none;
+            }
+            
+            .documentation-list {
+                display: flex;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                gap: 1.5rem;
+            }
+            
+            .documentation-list li {
+                margin: 0;
+                margin-left: 0;
+                list-style-type: none !important;
+            }
+        }
         p {
             max-width: 80ch; 
             line-height: 1.4rem; 
@@ -134,13 +161,12 @@
 
 <body class="bg-[#FDFCFB] p-6 text-black font-inter min-h-screen">
     <div class="grid gap-4 min-h-screen">
-        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
-        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+               <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
         <aside class="w-full md:w-1/5 p-4 md:p-6 md:fixed md:left-0 md:top-5">
             <nav class="flex md:flex-col items-center md:items-start justify-center md:justify-start space-x-6 md:space-x-0 md:space-y-4 text-sm font-light">                
                 <a href="/" class="hover:underline">Home</a>
-                <div>Documentation:</div>
-                <ul class="list-disc pl-6">
+                <div class="documentation-title">Documentation:</div>
+                <ul class="list-disc pl-6 documentation-list">
                     <li><a href="/glossary.html" class="hover:underline">Glossary</a></li>
                     <li><a href="/consumption_unit.html" class="hover:underline">Consumption Unit (CRA)</a></li>
                     <li><a href="/tribute_draft.html" class="hover:underline">Tribute Draft</a></li>
