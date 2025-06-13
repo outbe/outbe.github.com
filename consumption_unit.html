@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <title>Consumption Unit - outbe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+                ubuntuMono: ['"Ubuntu Mono"', 'monospace'],
+              }
+            }
+          }
+        }
+      </script>
+
+    <style>
+        p {
+            max-width: 80ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            margin-bottom: 1rem !important;
+        }
+        h1 {
+            margin-bottom: 1rem !important;
+        }
+        h2 {
+            font-size: 1.3rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h3 {
+            font-size: 1.2rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h4 {
+            font-size: 1.1rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .formula {
+            font-style: italic;
+            margin: 1em 0;
+        }
+
+        li {
+            margin-left: 1em;
+            margin-bottom: 0.5em;
+            max-width: 70ch; 
+            white-space: pre-wrap;
+        }
+
+        .text-list {
+            white-space: normal !important;
+        }
+
+        .text-list > li{
+            white-space: normal !important;
+        }
+
+
+        table {
+            border-collapse: collapse;
+            margin: 1rem 0;
+            max-width: 100ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            max-width: 80ch; 
+
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .math-formula {
+            background-color: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-family: 'Ubuntu Mono', monospace;
+            border-left: 3px solid #007bff;
+        }
+
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+    </style>
+</head>
+
+<body class="bg-[#FDFCFB] p-6 text-black font-inter min-h-screen">
+    <div class="grid gap-4 min-h-screen">
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <aside class="w-full md:w-1/5 p-4 md:p-6 md:fixed md:left-0 md:top-5">
+            <nav class="flex md:flex-col items-center md:items-start justify-center md:justify-start space-x-6 md:space-x-0 md:space-y-4 text-sm font-light">                
+                <a href="/" class="hover:underline">Home</a>
+                <div>Documentation:</div>
+                <ul class="list-disc pl-6">
+                    <li><a href="/glossary.html" class="hover:underline">Glossary</a></li>
+                    <li><a href="/consumption_unit.html" class="hover:underline">Consumption Unit (CRA)</a></li>
+                    <li><a href="/tribute_draft.html" class="hover:underline">Tribute Draft</a></li>
+                    <li><a href="/tribute.html" class="hover:underline">Tribute</a></li>
+                    <li><a href="/cra.html" class="hover:underline">CRA rewards</a></li>
+                </ul>
+                <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                <a href="https://github.com/outbe" class="hover:underline">Github</a>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+       <div class="p-4 md:ml-24 mt-6 md:mt-0 flex justify-center max-width">
+            <div>
+                <div>
+                    <h1 class="text-4xl sm:text-4xl font-light leading-none mb-12">CRA: Consumption Unit Generation</h1>
+                    <div class="text-base sm:text-base leading-relaxed font-inter font-light">
+                        
+                        <p>June 2025</p>
+                        
+                        
+                        <h2 class="font-semibold">1. Abstract</h2>
+                        <p>Consumption Unit (CU) is a data structure that represents a bundle of a user's Acts of Consumption for a given worldwide day, user's bank account, and time zone. Each CU is generated by the Consumption Reflection Agent (CRA) through the aggregation of eligible transaction records (CRs). Each CR is a reflection of a particular Act of Consumption. It is verified, submitted to the L2 network, and signed by the CRA. After being recorded on L2, CU becomes immutable and serves as the basis for submitting a Tribute to the network.</p>
+                        
+                        <p>After the Tribute is formed, it is offered on L1 by User via Wallet App.</p>
+
+                        <h2 class="font-semibold">Glossary</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>Definition</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Coen</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consent ID (consent_id)</strong></td>
+                                        <td>Unique identifier for a user's data processing consent, required for CR and CU processing.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consumption Record (CR)</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consumption Reflection Agent (CRA)</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consumption Unit (CU)</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Hash</strong></td>
+                                        <td>A cryptographic hash that acts as a traceable identifier for the objects.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Merchant Category Code (MCC)</strong></td>
+                                        <td>ISO code that categorises merchant types, used to determine eligibility for CU inclusion.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Open Banking API</strong></td>
+                                        <td>Interface used by CRA to securely retrieve verified transaction data from banks.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Settlement Token</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tribute</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Wallet</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Worldwide Day</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Nominal Qty</strong></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">2. System Logic</h2>
+
+                        <h3 class="font-semibold">Transactions</h3>
+                        <p>The CRA retrieves raw financial transaction data from a user's bank account from the valid financial data sources (e.g.Open Banking APIs or direct integration with financial institutions).</p>
+                        
+                        <p><strong>Steps:</strong></p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Authenticate and authorize access to a user's bank account via the bank.</li>
+                            <li>Use APIs to pull transaction data.</li>
+                            <li>Filter out relevant payment transactions.</li>
+                            <li>Normalize data: unify formats across consumption data providers.</li>
+                        </ul>
+
+                        <h3 class="font-semibold">Consumption Records (CRs)</h3>
+                        <p>The CRA ingests pre-validated transaction data twice per worldwide day.</p>
+                        
+                        <p>The first ingestion is initiated after the end of the CRA's local day and covers the period from the beginning of the worldwide day (00.00 UTC+12) up to the end of the CRA's local day.</p>
+                        
+                        <p>The second ingestion is initiated after the worldwide day ends and covers the remaining period, from 00:00 of the CRA's local next day to the end of the worldwide day (23:59 UTC–12). Examples: Appendix E.</p>
+                        
+                        <p>CRA:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Filters transactions by applying eligibility rules (personal accounts, merchant-type).</li>
+                            <li>Creates a Consumption Record (CR) in accordance with the Consumption Record Schema and normalizes transaction data.</li>
+                            <li>Transforms the value of the Act of Consumption into both the Settlement Token and Coen, by applying the exchange rate from the transaction's original currency at the moment the transaction occurred: <code>initiated_at</code>.</li>
+                            <li>Flags refunds as negative-value CRs.</li>
+                            <li>Hashes and stores all CRs with traceable, auditable attributes.</li>
+                        </ul>
+
+                        <p>Each CR links to:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>A user's bank account and consent ID. In the Wallet App, the user provides consent via their bank, and the CRA stores this consent and begins fetching transaction data. The CRA is responsible for monitoring consent validity and managing consent flows according to local standards, using commonly adopted statuses such as <code>active</code>, <code>revoked</code>, <code>expired</code>, and <code>pending</code>.</li>
+                            <li>The currency exchange rate and its source.</li>
+                            <li>Settlement Token and Coen rates. The Settlement Token is defined by the user during account creation in Wallet App. Settlement Token can be changed by the user, but it will become effective after the next day of consumption. The ongoing day will still use previously assigned settlement token. The Coen rate will be determined by the on-chain price oracle.</li>
+                            <li>A cryptographic hash of CR.</li>
+                        </ul>
+
+                        <h3 class="font-semibold">Consumption Units (CUs)</h3>
+                        <p>CUs are bundles of CRs aggregated per a user's bank account, worldwide day, and consumption timezone offset from UTC.</p>
+                        
+                        <p>Each CU:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Created in accordance with suggested Consumption Unit Schema (Appendix B).</li>
+                            <li>Computes the total value in both the Settlement Token and the Coen.</li>
+                        </ul>
+
+                        <p>CUs are immutable post-signing and subject to network deduplication.</p>
+                        
+                        <p>CUs are aggregated per network account and worldwide day to form a <a href="https://docs.proton.me/doc?mode=open&volumeId=P5wh1vdgaawJbCdPy7evSIxi-J-szT9CUKEmFo7jWuIqNtK8LPRSVLFeAAE58J2gGwHUsHX-CU6VbFvhoHfoUQ%3D%3D&linkId=jt0x_qUumH5IQT7hAAR-NWKXPcorDxNNeXzSR1s3Q94g0R7zQGEh03hBIOefh26V23YTB860fy0YJuPSaHv-Zw%3D%3D" class="underline hover:text-blue-600">Tribute Draft</a>.</p>
+
+                        <h3 class="font-semibold">Tribute Draft</h3>
+                        <p>In Order to ensure proof of consumption and CU for the original Tribute submitted to L1, the Tribute Draft should be created on L2 for consumption data integrity. Tribute Draft ID on L2 will be computed as a hash of selected internal fields for following validation of original <a href="https://docs.proton.me/doc?type=doc&mode=open&volumeId=_ioL_Myj62VSTckaDimt1FXOeTqRC0msMB5NHA5niozAWuYhLkl-sBD6vpZE3hCEoFKXVhqVjzR228D8mdFasw%3D%3D&linkId=3yS3DPk6QDYUbfLrbW2ye2O6sf_uBb8yzEYipPUC4bX8wz2VuQOr4YSMcmY4W9-i0B_YxNfDtLIyamJY0Q66WQ%3D%3D" class="underline hover:text-blue-600">Tribute</a> on L1.</p>
+
+                        <h2 class="font-semibold">3.CU Aggregation Rules</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Rule</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Aggregation</td>
+                                        <td>CRs are aggregated to CU<br><br>- per user's bank account<br>- per consumption timezone.<br>- per worldwide day</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Account type</td>
+                                        <td>Personal Account</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Eligibility</td>
+                                        <td>Only merchant transactions, no intra-user transfers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Refunds</td>
+                                        <td>Tracked as negative CRs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Signing Flow</td>
+                                        <td>CRA signs CUs, CUs are aggregated to Tribute Draft, which is submitted to L2 → User gets its consumption data in the form of original Tribute (which appears based on Tribute Draft data) in the Wallet App, signs it via Wallet App and sends to L1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deduplication</td>
+                                        <td>No overlapping CUs/CRs per account/date, unique CR and CU required</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>CR aggregation is collecting multiple CRs (Consumption Records) and combining them into CUs (Consumption Units) that represents the total value of consumption for a specific worldwide day, bank account and time zone.</p>
+                        
+                        <p>It includes:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Grouping all CRs matching the same bank account, time zone, and worldwide day</li>
+                            <li>Summing values (e.g. total settlement_amount_minor, total nominal_qty_minor)</li>
+                            <li>Producing one signed CU object from that set</li>
+                        </ul>
+
+                        <h3 class="font-semibold">CRA Implementation Principles</h3>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>CUs must be generated from finalized transactions.</li>
+                            <li>Refund logic must reconcile past CRs by recording a corresponding negative CR in a subsequent CU, with a reference to the original CU and its worldwide day.</li>
+                            <li>CRA must be able to recognize and reflect anomalous activity and fraud patterns as part of its processing logic.</li>
+                            <li>CRs creation and CUs aggregation are performed by CRA on the L2 network.</li>
+                            <li>Each CU, once signed by CRA, is pushed to Wallet App in a form of Tribute.</li>
+                            <li>User reviews and signs Tribute. By signing, the User submits the Tribute to L1.</li>
+                        </ul>
+
+                        <h3 class="font-semibold">Hashing</h3>
+                        <p>Suggested hashing algorithm is Blake3.</p>
+                        
+                        <p>Each CR has unique hash derived from the following attributes.</p>
+
+                        <h4 class="font-semibold">Suggested CR Hash Inputs</h4>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Included in Hash</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>initiated_at</td>
+                                        <td>when the financial institution registered the transaction</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>bank_account</td>
+                                        <td>The user's account details hash (blake3(bic + iban || bban)</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRN</td>
+                                        <td>Transaction Reference Number, a unique identifier assigned to a specific financial transaction (will be taken from transaction_id)</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>Each CU should have unique hash derived from the following attributes.</p>
+
+                        <h4 class="font-semibold">Suggested CU Hash Inputs</h4>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Included in Hash</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>created_at</td>
+                                        <td>date of CU creation</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>worldwide_date</td>
+                                        <td>A 48-hour period covering all global time zones</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>consumption_timezone</td>
+                                        <td>Timezone in which the consumption was registered</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>bank_account</td>
+                                        <td>The user's account details hash (blake3(bic + iban || bban)</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>list of CR.hashes</td>
+                                        <td>Ordered list of hashes of the Consumption Records (CRs) that are being associated with the CU</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>Each Tribute Draft should have unique hash derived from the following attributes.</p>
+
+                        <h4 class="font-semibold">Suggested Tribute Draft Hash Inputs</h4>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Included in Hash</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>created_at</td>
+                                        <td>date of Tribute Draft creation</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>owner</td>
+                                        <td>Network address on L2 associated with the owner</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>worldwide_date</td>
+                                        <td>Worldwide day Tribute was submitted to L1 for</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>settlement_token</td>
+                                        <td>Settlement Token is used for user's account.</td>
+                                        <td>✅ Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>settlement_amount_minor</td>
+                                        <td>Aggregated settlement amount</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>nominal_qty_minor</td>
+                                        <td>Calculated Coen QTY</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>list of CU.hashes</td>
+                                        <td>Ordered list of hashes of the Consumption Units (CUs) that are being associated with the original Tribute submitted to L1</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">4. Appendix</h2>
+
+                        <h3 class="font-semibold">Appendix A Status Legend</h3>
+                        <p>CU is submitted on L2, checked for duplication. If CU is accepted by network it will be included in the Tribute Draft for the period of worldwide day reflecting consolidated user's consumption.</p>
+                        
+                        <p>The event of CU validation and creation on L2 is considered as CU is accepted on the network and is ready for further consolidation in Tribute Draft.</p>
+                        
+                        <p>The event of Tribute Draft creation and validation on L2 is considered as consolidated record of user's consumption ready to be signed and submitted as original Tribute on L1.</p>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Object</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tribute Draft on L2</td>
+                                        <td>Created, Utilized</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="font-semibold">Appendix B CR and CU Schemas</h3>
+
+                        <h4 class="font-semibold">Suggested Consumption Record (CR) Schema for CRA CR submission to L2</h4>
+                        <p>CR will be accepted on L2 in hash form with the fields stated in Hashing Section.</p>
+
+                        <pre><code>consumption_record:
+  type: object
+  description: Represents a payment transaction between merchant and user according to PSD2 standards
+  required:
+    - transaction_id
+    - owner
+    - bank_account
+    - initiated_at
+    - consumption_timezone
+    - settlement_token
+    - settlement_base_amount
+	- settlement_atto_amount
+	- settlement_rate
+    - nominal_rate_minor
+    - nominal_qty_minor
+    - status
+    - settlement_date
+    - merchant_name
+    - merchant_id
+    - merchant_category_code
+    - payment_method
+    - reference
+    - location
+    - transaction_type
+    - transaction_amount
+
+  properties:
+      
+    transaction_id:
+      type: string
+      description: Unique identifier for the transaction reference number from user's bank account, TRN
+      example: "TX1234567890"
+
+    owner:
+      type: string
+      description: Network address associated with the owner
+      example: 0x1234abcd5678ef901234abcd5678ef901234abcd
+    
+    bank_account:
+		type: string
+		description: The user's account details hash (blake3(bic + iban || bban)
+		example: a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 
+    
+    initiated_at:
+      	type: string
+      	format: date-time
+      	description: Date and time when the transaction was initiated
+      	example: "2025-05-03T14:30:45Z"
+      
+	consumption_timezone:
+  		type: string
+  		description: Time zone offset from UTC in ±HH:MM format at the time the consumption took place.
+  		example: "+01:00"
+      
+    settlement_token:
+		type: string
+      	description: Token used for settlement 
+      	example: "USD", "EUR", "GBP", "CNY", "JPY", "HKD"
+
+	settlement_base_amount:
+  		type: integer
+ 		description:  Amount of the Consumption Record in the Settlement Token. Integer part, expressed in natural units (e.g., 10 = 10 EUR). Calculated as  transaction original value / settlement rate. The settlement rate should come from a trusted oracle (e.g., Chainlink).
+ 		example: 10
+ 		
+	settlement_atto_amount: 
+ 		type: integer
+ 		description: Amount of the Tribute in Settlement Tokens. Fractional part, in atto points (e.g. 10^-18) 
+ 		example: 300000000000000000 # 0.3 * 10^18 
+  		
+  	settlement_rate:
+		type: number
+		format: decimal
+		description: Conversion rate between transaction_amount and settlement amount (base + atto).
+  		
+	nominal_rate_minor:
+      	type: integer
+      	description: Exchange rate used to convert the settlement amount (base + atto) into COEN units. This rate is sourced from a price oracle.
+    
+    nominal_qty_minor:
+    	type: integer
+  		description: Value of the Consumption Record in Coen. nominal_qty_minor = settlement_base_amount.settlement_atto_amount / nominal_rate_minor	
+      
+    status:
+      type: string
+      enum:
+        - COMPLETED
+        - PENDING
+        - DECLINED
+        - REFUNDED
+      description: Current status of the transaction
+      example: "COMPLETED"
+          
+    settlement_date:
+      	type: string
+      	format: date-time
+      	description: Date and time when the transaction was settled
+      	example: "2025-05-04T10:15:22Z"
+    
+    merchant_name:
+      type: string
+      description: Name of the merchant
+      example: "City Supermarket"
+    
+    merchant_id:
+      type: string
+      description: Unique identifier for the merchant
+      example: "MERCH-ID-9876"
+    
+    merchant_category_code:
+      type: string
+      description: Merchant category code as defined by card networks (MCC)
+      example: "5411"
+    
+    payment_method:
+      type: object
+      description: Payment method used for the transaction
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - CARD
+            - BANK_TRANSFER
+            - WALLET APP
+            - OTHER
+          description: Type of payment method used
+          example: "CARD"
+        masked_pan:
+          type: string
+          description: Masked card number (for card payments)
+          example: "****-****-****-1234"
+        card_type:
+          type: string
+          description: Type of card used (for card payments)
+          example: "DEBIT"
+        wallet_app_provider:
+          type: string
+          description: Provider of the digital wallet app (for wallet app payments)
+          example: "APPLE_PAY"
+    
+    reference:
+      type: string
+      description: Reference information for the transaction
+      example: "POS-PURCHASE-12345"
+    
+    location:
+      type: object
+      description: Location where the transaction took place
+      properties:
+        city:
+          type: string
+          description: City where the transaction occurred
+          example: "Frankfurt"
+        country:
+          type: string
+          description: Country code where the transaction occurred
+          example: "DE"
+    
+    transaction_type:
+      type: string
+      enum:
+        - PURCHASE
+        - REFUND
+        - AUTHORIZATION
+        - CAPTURE
+        - VOID
+        - PRE_AUTHORIZATION
+        - RECURRING
+        - INSTALLMENT
+        - CASH_ADVANCE
+        - BALANCE_TRANSFER
+        - FEE
+      description: >
+        Type of the transaction that indicates its purpose and processing flow:
+        * PURCHASE - Standard purchase of goods or services
+        * REFUND - Return of funds to the user for a previous transaction
+        * AUTHORIZATION - Initial hold of funds without actual transfer (pending transaction)
+        * CAPTURE - Completion of a previously authorized transaction
+        * VOID - Cancellation of a transaction before settlement
+        * PRE_AUTHORIZATION - Reserved funds for future transactions (like hotel or car rental)
+        * RECURRING - Regular payment based on an agreement (subscription)
+        * INSTALLMENT - Part of a series of scheduled payments for a single purchase
+        * CASH_ADVANCE - Cash withdrawal using a payment card
+        * BALANCE_TRANSFER - Moving funds between accounts
+        * FEE - Service charge from merchant or payment provider
+      example: "PURCHASE"
+    
+    transaction_amount:
+      type: object
+      required:
+        - amount
+        - currency
+      properties:
+		transaction_amount_base:
+      		type: integer
+      		description: Integer part of the transaction amount, in natural currency units (e.g., 123 = 123 INR). Represents the whole-number portion.
+      		example: 123
+		transaction_amount_atto:
+      		type: string
+      		description: Fractional part of the transaction amount, expressed in atto-units (10^-18 of the base currency). Used for precision beyond standard decimals.
+      		example: "450000000000000000"  # 0.45 * 10^18
+        currency:
+          type: string
+          pattern: "^[A-Z]{3}$"
+          description: ISO 4217 Alpha 3 currency code
+          example: "INR"</code></pre>
+
+                        <h4 class="font-semibold">Suggested Consumption Unit (CU) Schema for CRA CU submission to L2</h4>
+                        <p>CU will be accepted on L2 in hash form with the fields stated in Hashing section.</p>
+
+                        <pre><code>consumption_unit:
+  type: object
+  description: Represents a Consumption Unit (CU) record
+  required:
+    - cu_id
+    - created_at
+    - owner
+    - worldwide_date
+    - consumption_timezone
+    - bank_account
+    - settlement_token
+    - settlement_base_amount
+    - settlement_atto_amount
+    - nominal_qty_minor
+    - cr_hashes
+
+  properties:
+    cu_id:
+      type: string
+      description: Unique CU identifier; hash of worldwide_date, consumption_timezone, BIC, and bank account number
+      
+    created_at:
+      type: string
+      format: date-time
+      description: ISO 8601 timestamp of when the CU was created
+      
+    owner:
+      type: string
+      description: Network address associated with the owner
+      example: 0x1234abcd5678ef901234abcd5678ef901234abcd
+    
+    worldwide_date:
+      type: string
+      format: date
+      description: Worldwide day in ISO 8601 date format. Represents the date the Consumption Unit (CU) was aggregated for — corresponding to the actual day of consumption based on the initiated transactions. 
+    
+    consumption_timezone:
+      type: string
+      description: Time zone offset from UTC in ±HH:MM format at the time the consumption took place.
+      example: "+01:00"
+     
+	bank_account
+		type: string
+		description: The user's account details hash (blake3(bic + iban || bban)
+		example: a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 
+   
+    settlement_token:
+      type: string
+      description: Token used for settlement (e.g., "USD", "EUR", "GBP", "CNY", "JPY", "HKD")
+
+    settlement_base_amount:
+      type: integer
+      description: Amount of the Tribute in Settlement Tokens. Integer part, in natural points.
+      example: 42
+
+    settlement_atto_amount:
+      type: integer
+      description: Amount of the Tribute in Settlement Tokens. Fractional part, in atto points (e.g. 10^-18)
+      example: 300000000000000000  # 0.3 * 10^18
+
+    nominal_qty_minor:
+      type: integer
+      description: Sum of all related CR.nominal_qty_minor values
+
+	cra_hashes:
+      type: array
+      items:
+      	type: string
+      	pattern: "^[A-Fa-f0-9]{64}$"
+      description: Ordered list of CR hashes included in the CU</code></pre>
+
+                        <h4 class="font-semibold">Tribute Draft Schema for L2</h4>
+
+                        <pre><code>tribute_draft:
+  type: object
+  description: Represents the input fields used to compute Tribute Draft
+  required:
+    - tribute_draft_id
+    - created_at
+    - owner
+    - worldwide_date
+    - settlement_token
+    - settlement_amount_minor
+    - nominal_qty_minor
+    - state
+    - cu_hashes
+
+  properties:
+  
+	tribute_draft_id:
+      type: string
+      description: Unique Tribute Draft identifier
+      
+    created_at:
+      type: string
+      format: date-time
+      description: ISO 8601 timestamp of when the Tribute Draft was created
+      
+    owner:
+      type: string
+      description: Network address associated with the owner
+      
+    worldwide_date:
+      type: string
+      format: date
+      description: Worldwide Day in ISO 8601 date format
+
+    settlement_token:
+      type: string
+      description: Token used for settlement (e.g., "USD", "EUR", "GBP", "CNY", "JPY", "HKD")
+
+    settlement_amount_minor:
+      type: integer [10^6]
+      description: Value of the Tribute in Settlement Tokens
+      example: 1200.67 tokens = 1200670000 (assuming 1 token = 1,000,000 microtokens)
+
+     nominal_qty_minor:
+       type: integer[10^18]
+       description: Value of the Tribute Draft in Coens
+       example: 200
+      
+      state:
+      	type: string
+      enum:
+        - accepted
+        - utilized
+      description: State of the Tribute Draft
+
+    cu_hashes:
+      	type: array
+      	      items:
+      	type: string
+      	pattern: "^[A-Fa-f0-9]{64}$"
+      description: Ordered list of CU hashes included in the Tribute Draft</code></pre>
+
+                        <h3 class="font-semibold">Appendix C — Timeline</h3>
+
+                        <h4 class="font-semibold">Timeline: CU and Tribute</h4>
+
+                        <h4 class="font-semibold">T₀ – Start of Worldwide Day (00:00 UTC+12)</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>The <strong>CRA begins monitoring</strong> for consumption events globally either in one local zone or multiple depending on their financial organisation zones coverage.</li>
+                            <li>Each User has its own local 24h period of consumption within worldwide day.</li>
+                            <li>All transactions during this Worldwide Day are considered for CR/CU processing by CRA.</li>
+                            <li>CRA awaits two ingestion periods split by local time of consumption zone within the one worldwide day.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">T₁ – CRA First Ingestion Window (after CRA's local day ends)</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>Time:</strong> After local day ends (23:59 local time), note that the current worldwide day is still ongoing, only local 24h window came to an end.</li>
+                            <li><strong>Period of consumption:</strong> Transactions from <code>00:00 UTC+12</code> to the end of CRA's local day.</li>
+                            <li><strong>Actions:</strong>
+                                <ul class="text-list list-disc ml-8">
+                                    <li>CRA pulls transaction data.</li>
+                                    <li>Filters and normalizes relevant merchant payments.</li>
+                                    <li>Creates CRs per schema</li>
+                                    <li>Stores CRs with exchange rates, merchant data, and references.</li>
+                                    <li>Generates CUs, submit to L2, signs CU</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h4 class="font-semibold">T₂ – CRA Second Ingestion Window (after Worldwide Day ends, 23:59 UTC–12)</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>Time:</strong> After worldwide day ends: starting at 00:00 of the next Worldwide Day</li>
+                            <li><strong>Period of consumption:</strong> Transactions from local new day start, 00:00 local time, within the same Worldwide day up to <code>23:59 UTC–12</code>.</li>
+                            <li><strong>Actions:</strong>
+                                <ul class="text-list list-disc ml-8">
+                                    <li>CRA fetches remaining transactions eligible for the same Worldwide Day (in case user is changing local zone, due to a travel).</li>
+                                    <li>Completes the CR set for the day.</li>
+                                    <li>Generates the rest CUs, submit to L2, signs CU</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h4 class="font-semibold">T₃ – CU Aggregation and Tribute send to Wallet App (~shortly after T₂)</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>Time:</strong> Within ~1h hours after T₂ (depends on CRA implementation).</li>
+                            <li><strong>Actions:</strong>
+                                <ul class="text-list list-disc ml-8">
+                                    <li>CUs aggregated into Tribute Draft on L2</li>
+                                    <li>Wallet App fetches draft tributes from L2</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h4 class="font-semibold">T₄ – Tribute Signing Window Opens</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>Time:</strong> Immediately after aggregated CUs in a form of Tribute pushed to the Wallet.</li>
+                            <li><strong>Window:</strong> <strong>24 hours from</strong> the end of the Worldwide Day</li>
+                            <li><strong>Actions:</strong>
+                                <ul class="text-list list-disc ml-8">
+                                    <li>Wallet notifies user to <strong>review and sign</strong> the Tribute.</li>
+                                    <li>Tribute includes one or more CU(s) for the user's Worldwide Day.</li>
+                                    <li>User can accept or ignore.</li>
+                                    <li>If ignored for 24h → Tribute is considered <code>expired</code> though it will never be created on the network and so never recorded.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h4 class="font-semibold">T₅ – Tribute Submission to L1, Tribute Draft to L2 Submission</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>Time:</strong> As soon as the user signs the Tribute.</li>
+                            <li><strong>Window:</strong> Immediately after user sign and submit to L1</li>
+                            <li><strong>Actions:</strong>
+                                <ul class="text-list list-disc ml-8">
+                                    <li>Wallet submits the signed Tribute (CU bundle) to L1.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h4 class="font-semibold">T₆ – On-chain Validation</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>Time:</strong> Subject to L1 Tribute validation.</li>
+                            <li><strong>Actions:</strong>
+                                <ul class="text-list list-disc ml-8">
+                                    <li>L1 either <strong>accepts</strong> the Tribute (verification with Tribute Draft check).</li>
+                                    <li>If accepted → original Tribute status becomes <code>accepted</code> or <code>muted</code></li>
+                                    <li>Tribute Draft status on L2 is changed to <code>utilized</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p>If Tribute is not accepted on L1, it is not created and there is no record on L1 for it.</p>
+
+                        <h3 class="font-semibold">Appendix D — Consumption & Tribute Timing Matrix relative to Worldwide Day</h3>
+                        <p>This scheme provides a <strong>time zone–adjusted matrix</strong> that illustrates the alignment between <strong>consumption events</strong> and <strong>tribute submission deadlines</strong> in relation to <strong>Worldwide Day</strong>. The period from <strong>May 20 to May 23, 2025</strong>, is used as an example.</p>
+
+                        <h4 class="font-semibold">Key Components:</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>Top Row (G/R 48h):</strong> Represents the 48-hour window used to determine the timeline for the Worldwide Days.</li>
+                            <li><strong>HR Rows (+12:00, +04:00, +00:00, -12:00):</strong> Display how consumption periods and tribute submission deadlines are adjusted across multiple global time zones.</li>
+                            <li><strong>Consumption Blocks:</strong> Mark the exact dates and times within each time zone during which consumption activity qualifies for the corresponding Worldwide day.</li>
+                            <li><strong>Associated Actions:</strong> Each consumption block is tied to:
+                                <ol class="text-list list-decimal ml-8">
+                                    <li>The <strong>Worldwide Day</strong> it contributes to (e.g., 20.05), and</li>
+                                    <li>The <strong>tribute submission deadline</strong> to L1 for that Worldwide Day.</li>
+                                </ol>
+                            </li>
+                        </ul>
+
+                        <h3 class="font-semibold">Appendix E — Consumption Timezone examples</h3>
+
+                        <h4 class="font-semibold">Suva, Funafuti) — UTC+12</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>First Ingestion</strong>: Initiated at <strong>00:00 UTC+12 on Local Day 2</strong> (start of local Day 2, Worldwide Day 1). It covers the period from <strong>00:00 UTC+12 (local Day 1)</strong> to <strong>23:59 UTC+12 (local Day 1)</strong></li>
+                            <li><strong>Second Ingestion</strong>: Initiated at <strong>00:00 UTC+12 on Worldwide Day 2</strong> It covers the period from <strong>00:00 UTC+12 (local Day 2, Worldwide Day 1)</strong> to <strong>23:59 UTC+12 (local Day 2, Worldwide Day 1).</strong></li>
+                        </ul>
+
+                        <h4 class="font-semibold">Tokyo — UTC+9</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>First Ingestion:</strong> Initiated at <strong>00:00 UTC+9 on Local Day 2</strong> (start of <strong>Local Day 2</strong>, <strong>Worldwide Day 1</strong>). It covers the period from <strong>00:00 UTC+9 (Local Day 1)</strong> to <strong>23:59 UTC+9 (Local Day 1)</strong></li>
+                            <li><strong>Second Ingestion:</strong> Initiated at <strong>00:00 UTC+12 on Worldwide Day 2</strong>. It covers the period from <strong>00:00 UTC+9 (local Day 2, Worldwide Day 1)</strong> to <strong>23:59 UTC+12 (local Day 2, Worldwide Day 1)</strong>.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">Istanbul — UTC+3</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>First Ingestion:</strong> Initiated at <strong>00:00 UTC+3 on Local Day 2</strong> (start of <strong>Local Day 2</strong>, <strong>Worldwide Day 1</strong>). It covers the period from <strong>00:00 UTC+3 (Local Day 1)</strong> to <strong>23:59 UTC+3 (Local Day 1)</strong></li>
+                            <li><strong>Second Ingestion:</strong> Initiated at <strong>00:00 UTC+12 on Worldwide Day 2</strong>. It covers the period from <strong>00:00 UTC+3 (local Day 2, Worldwide Day 1)</strong> to <strong>23:59 UTC+12 (local Day 2, Worldwide Day 1)</strong>.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">Los Angeles — UTC–7</h4>
+                        <ul class="text-list list-disc ml-6 mb-4">
+                            <li><strong>First Ingestion:</strong> Initiated at <strong>00:00 UTC–7 on Day 2</strong> (start of <strong>Local Day 2</strong>, <strong>Worldwide Day 1</strong>). It covers the period from <strong>00:00 UTC-7 (Local Day 1)</strong> to <strong>23:59 UTC–7 (Local Day 1)</strong></li>
+                            <li><strong>Second Ingestion:</strong> Initiated at <strong>00:00 UTC+12 on Worldwide Day 2</strong>. It covers the period from <strong>00:00 UTC-7 (local Day 2, Worldwide Day 1)</strong> to <strong>23:59 UTC+12 (local Day 2, Worldwide Day 1)</strong>.</li>
+                        </ul>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full small-table" style="font-size: 0.8rem !important;">
+                                <thead>
+                                    <tr>
+                                        <th width="30%"></th>
+                                        <th width="10%"><strong>WW Day 1 N of Hour</strong></th>
+                                        <th width="10%"><strong>(Suva, Funafuti) UTC+12</strong></th>
+                                        <th width="10%"><strong>Tokyo (UTC+9)</strong></th>
+                                        <th width="10%"><strong>Istanbul (UTC+3)</strong></th>
+                                        <th width="10%"><strong>Los Angeles (UTC-7)</strong></th>
+                                        <th width="9%"><strong>UTC</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Second Ingestion Day 0</td>
+                                        <td>-</td>
+                                        <td>00:00 (Day 1)</td>
+                                        <td>21:00 (Day 0)</td>
+                                        <td>15:00 (Day 0)</td>
+                                        <td>05:00 (Day 0)</td>
+                                        <td>12:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Start of WW Day 1</td>
+                                        <td><strong>1h</strong></td>
+                                        <td>01:00 (Day 1)</td>
+                                        <td>22:00 (Day 0)</td>
+                                        <td>16:00 (Day 0)</td>
+                                        <td>06:00 (Day 0)</td>
+                                        <td>13:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>2h</strong></td>
+                                        <td>02:00 (Day 1)</td>
+                                        <td>23:00 (Day 0)</td>
+                                        <td>17:00 (Day 0)</td>
+                                        <td>07:00 (Day 0)</td>
+                                        <td>14:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>3h</strong></td>
+                                        <td>03:00 (Day 1)</td>
+                                        <td>00:00 (Day 1)</td>
+                                        <td>18:00 (Day 0)</td>
+                                        <td>08:00 (Day 0)</td>
+                                        <td>15:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>4h</strong></td>
+                                        <td>04:00 (Day 1)</td>
+                                        <td>01:00 (Day 1)</td>
+                                        <td>19:00 (Day 0)</td>
+                                        <td>09:00 (Day 0)</td>
+                                        <td>16:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>5h</strong></td>
+                                        <td>05:00 (Day 1)</td>
+                                        <td>02:00 (Day 1)</td>
+                                        <td>20:00 (Day 0)</td>
+                                        <td>10:00 (Day 0)</td>
+                                        <td>17:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>6h</strong></td>
+                                        <td>06:00 (Day 1)</td>
+                                        <td>03:00 (Day 1)</td>
+                                        <td>21:00 (Day 0)</td>
+                                        <td>11:00 (Day 0)</td>
+                                        <td>18:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>7h</strong></td>
+                                        <td>07:00 (Day 1)</td>
+                                        <td>04:00 (Day 1)</td>
+                                        <td>22:00 (Day 0)</td>
+                                        <td>12:00 (Day 0)</td>
+                                        <td>19:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>8h</strong></td>
+                                        <td>08:00 (Day 1)</td>
+                                        <td>05:00 (Day 1)</td>
+                                        <td>23:00 (Day 0)</td>
+                                        <td>13:00 (Day 0)</td>
+                                        <td>20:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>9h</strong></td>
+                                        <td>09:00 (Day 1)</td>
+                                        <td>06:00 (Day 1)</td>
+                                        <td>00:00 (Day 1)</td>
+                                        <td>14:00 (Day 0)</td>
+                                        <td>21:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>10h</strong></td>
+                                        <td>10:00 (Day 1)</td>
+                                        <td>07:00 (Day 1)</td>
+                                        <td>01:00 (Day 1)</td>
+                                        <td>15:00 (Day 0)</td>
+                                        <td>22:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>11h</strong></td>
+                                        <td>11:00 (Day 1)</td>
+                                        <td>08:00 (Day 1)</td>
+                                        <td>02:00 (Day 1)</td>
+                                        <td>16:00 (Day 0)</td>
+                                        <td>23:00 (Day 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>12h</strong></td>
+                                        <td>12:00 (Day 1)</td>
+                                        <td>09:00 (Day 1)</td>
+                                        <td>03:00 (Day 1)</td>
+                                        <td>17:00 (Day 0)</td>
+                                        <td>00:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>13h</strong></td>
+                                        <td>13:00 (Day 1)</td>
+                                        <td>10:00 (Day 1)</td>
+                                        <td>04:00 (Day 1)</td>
+                                        <td>18:00 (Day 0)</td>
+                                        <td>01:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>14h</strong></td>
+                                        <td>14:00 (Day 1)</td>
+                                        <td>11:00 (Day 1)</td>
+                                        <td>05:00 (Day 1)</td>
+                                        <td>19:00 (Day 0)</td>
+                                        <td>02:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>15h</strong></td>
+                                        <td>15:00 (Day 1)</td>
+                                        <td>12:00 (Day 1)</td>
+                                        <td>06:00 (Day 1)</td>
+                                        <td>20:00 (Day 0)</td>
+                                        <td>03:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>16h</strong></td>
+                                        <td>16:00 (Day 1)</td>
+                                        <td>13:00 (Day 1)</td>
+                                        <td>07:00 (Day 1)</td>
+                                        <td>21:00 (Day 0)</td>
+                                        <td>04:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>17h</strong></td>
+                                        <td>17:00 (Day 1)</td>
+                                        <td>14:00 (Day 1)</td>
+                                        <td>08:00 (Day 1)</td>
+                                        <td>22:00 (Day 0)</td>
+                                        <td>05:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>18h</strong></td>
+                                        <td>18:00 (Day 1)</td>
+                                        <td>15:00 (Day 1)</td>
+                                        <td>09:00 (Day 1)</td>
+                                        <td>23:00 (Day 0)</td>
+                                        <td>06:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>19h</strong></td>
+                                        <td>19:00 (Day 1)</td>
+                                        <td>16:00 (Day 1)</td>
+                                        <td>10:00 (Day 1)</td>
+                                        <td>00:00 (Day 1)</td>
+                                        <td>07:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>20h</strong></td>
+                                        <td>20:00 (Day 1)</td>
+                                        <td>17:00 (Day 1)</td>
+                                        <td>11:00 (Day 1)</td>
+                                        <td>01:00 (Day 1)</td>
+                                        <td>08:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>21h</strong></td>
+                                        <td>21:00 (Day 1)</td>
+                                        <td>18:00 (Day 1)</td>
+                                        <td>12:00 (Day 1)</td>
+                                        <td>02:00 (Day 1)</td>
+                                        <td>09:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>22h</strong></td>
+                                        <td>22:00 (Day 1)</td>
+                                        <td>19:00 (Day 1)</td>
+                                        <td>13:00 (Day 1)</td>
+                                        <td>03:00 (Day 1)</td>
+                                        <td>10:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>23h</strong></td>
+                                        <td>23:00 (Day 1)</td>
+                                        <td>20:00 (Day 1)</td>
+                                        <td>14:00 (Day 1)</td>
+                                        <td>04:00 (Day 1)</td>
+                                        <td>11:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Ingestion Day 1, </br>Zone at UTC +12 at 00:00</td>
+                                        <td><strong>24h</strong></td>
+                                        <td>00:00 (Day 2)</td>
+                                        <td>21:00 (Day 1)</td>
+                                        <td>15:00 (Day 1)</td>
+                                        <td>05:00 (Day 1)</td>
+                                        <td>12:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>25h</strong></td>
+                                        <td>01:00 (Day 2)</td>
+                                        <td>22:00 (Day 1)</td>
+                                        <td>16:00 (Day 1)</td>
+                                        <td>06:00 (Day 1)</td>
+                                        <td>13:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>26h</strong></td>
+                                        <td>02:00 (Day 2)</td>
+                                        <td>23:00 (Day 1)</td>
+                                        <td>17:00 (Day 1)</td>
+                                        <td>07:00 (Day 1)</td>
+                                        <td>14:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Ingestion </br> Zone UTC +9 at 00:00</td>
+                                        <td><strong>27h</strong></td>
+                                        <td>03:00 (Day 2)</td>
+                                        <td>00:00 (Day 2)</td>
+                                        <td>18:00 (Day 1)</td>
+                                        <td>08:00 (Day 1)</td>
+                                        <td>15:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>28h</strong></td>
+                                        <td>04:00 (Day 2)</td>
+                                        <td>01:00 (Day 2)</td>
+                                        <td>19:00 (Day 1)</td>
+                                        <td>09:00 (Day 1)</td>
+                                        <td>16:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>29h</strong></td>
+                                        <td>05:00 (Day 2)</td>
+                                        <td>02:00 (Day 2)</td>
+                                        <td>20:00 (Day 1)</td>
+                                        <td>10:00 (Day 1)</td>
+                                        <td>17:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>30h</strong></td>
+                                        <td>06:00 (Day 2)</td>
+                                        <td>03:00 (Day 2)</td>
+                                        <td>21:00 (Day 1)</td>
+                                        <td>11:00 (Day 1)</td>
+                                        <td>18:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>31h</strong></td>
+                                        <td>07:00 (Day 2)</td>
+                                        <td>04:00 (Day 2)</td>
+                                        <td>22:00 (Day 1)</td>
+                                        <td>12:00 (Day 1)</td>
+                                        <td>19:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>32h</strong></td>
+                                        <td>08:00 (Day 2)</td>
+                                        <td>05:00 (Day 2)</td>
+                                        <td>23:00 (Day 1)</td>
+                                        <td>13:00 (Day 1)</td>
+                                        <td>20:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Ingestion </br> Zone UTC +3 at 00:00</td>
+                                        <td><strong>33h</strong></td>
+                                        <td>09:00 (Day 2)</td>
+                                        <td>06:00 (Day 2)</td>
+                                        <td>00:00 (Day 2)</td>
+                                        <td>14:00 (Day 1)</td>
+                                        <td>21:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>34h</strong></td>
+                                        <td>10:00 (Day 2)</td>
+                                        <td>07:00 (Day 2)</td>
+                                        <td>01:00 (Day 2)</td>
+                                        <td>15:00 (Day 1)</td>
+                                        <td>22:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>35h</strong></td>
+                                        <td>11:00 (Day 2)</td>
+                                        <td>08:00 (Day 2)</td>
+                                        <td>02:00 (Day 2)</td>
+                                        <td>16:00 (Day 1)</td>
+                                        <td>23:00 (Day 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>36h</strong></td>
+                                        <td>12:00 (Day 2)</td>
+                                        <td>09:00 (Day 2)</td>
+                                        <td>03:00 (Day 2)</td>
+                                        <td>17:00 (Day 1)</td>
+                                        <td>00:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>37h</strong></td>
+                                        <td>13:00 (Day 2)</td>
+                                        <td>10:00 (Day 2)</td>
+                                        <td>04:00 (Day 2)</td>
+                                        <td>18:00 (Day 1)</td>
+                                        <td>01:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>38h</strong></td>
+                                        <td>14:00 (Day 2)</td>
+                                        <td>11:00 (Day 2)</td>
+                                        <td>05:00 (Day 2)</td>
+                                        <td>19:00 (Day 1)</td>
+                                        <td>02:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>39h</strong></td>
+                                        <td>15:00 (Day 2)</td>
+                                        <td>12:00 (Day 2)</td>
+                                        <td>06:00 (Day 2)</td>
+                                        <td>20:00 (Day 1)</td>
+                                        <td>03:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>40h</strong></td>
+                                        <td>16:00 (Day 2)</td>
+                                        <td>13:00 (Day 2)</td>
+                                        <td>07:00 (Day 2)</td>
+                                        <td>21:00 (Day 1)</td>
+                                        <td>04:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>41h</strong></td>
+                                        <td>17:00 (Day 2)</td>
+                                        <td>14:00 (Day 2)</td>
+                                        <td>08:00 (Day 2)</td>
+                                        <td>22:00 (Day 1)</td>
+                                        <td>05:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>42h</strong></td>
+                                        <td>18:00 (Day 2)</td>
+                                        <td>15:00 (Day 2)</td>
+                                        <td>09:00 (Day 2)</td>
+                                        <td>23:00 (Day 1)</td>
+                                        <td>06:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Ingestion </br> Zone UTC-7 at 00:00</td>
+                                        <td><strong>43h</strong></td>
+                                        <td>19:00 (Day 2)</td>
+                                        <td>16:00 (Day 2)</td>
+                                        <td>10:00 (Day 2)</td>
+                                        <td>00:00 (Day 2)</td>
+                                        <td>07:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>44h</strong></td>
+                                        <td>20:00 (Day 2)</td>
+                                        <td>17:00 (Day 2)</td>
+                                        <td>11:00 (Day 2)</td>
+                                        <td>01:00 (Day 2)</td>
+                                        <td>08:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>45h</strong></td>
+                                        <td>21:00 (Day 2)</td>
+                                        <td>18:00 (Day 2)</td>
+                                        <td>12:00 (Day 2)</td>
+                                        <td>02:00 (Day 2)</td>
+                                        <td>09:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>46h</strong></td>
+                                        <td>22:00 (Day 2)</td>
+                                        <td>19:00 (Day 2)</td>
+                                        <td>13:00 (Day 2)</td>
+                                        <td>03:00 (Day 2)</td>
+                                        <td>10:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>47h</strong></td>
+                                        <td>23:00 (Day 2)</td>
+                                        <td>20:00 (Day 2)</td>
+                                        <td>14:00 (Day 2)</td>
+                                        <td>04:00 (Day 2)</td>
+                                        <td>11:00 (Day 2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>End of WW Day 1 (23:59). Second Ingestion for all Zones at UTC+12 and start of 24 Tribute Submission period</strong></td>
+                                        <td><strong>48h</strong></td>
+                                        <td>00:00 (Day 3)</td>
+                                        <td>21:00 (Day 2)</td>
+                                        <td>15:00 (Day 2)</td>
+                                        <td>05:00 (Day 2)</td>
+                                        <td>12:00 (Day 2)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-sm font-light mt-10 flex justify-center space-x-6"> 
+                    <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
