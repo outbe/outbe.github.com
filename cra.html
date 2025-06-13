@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <title>CRA Reward Mechanism - outbe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+                ubuntuMono: ['"Ubuntu Mono"', 'monospace'],
+              }
+            }
+          }
+        }
+      </script>
+
+    <style>
+        p {
+            max-width: 80ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            margin-bottom: 1rem !important;
+        }
+        h1 {
+            margin-bottom: 1rem !important;
+        }
+        h2 {
+            font-size: 1.3rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h3 {
+            font-size: 1.2rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h4 {
+            font-size: 1.1rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .formula {
+            font-style: italic;
+            margin: 1em 0;
+        }
+
+        li {
+            margin-left: 1em;
+            margin-bottom: 0.5em;
+            max-width: 70ch; 
+            white-space: pre-wrap;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 1rem 0;
+            max-width: 100%;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .math-formula {
+            background-color: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-family: 'Ubuntu Mono', monospace;
+            border-left: 3px solid #007bff;
+        }
+
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+    </style>
+</head>
+
+<body class="bg-[#FDFCFB] p-6 text-black font-inter min-h-screen">
+    <div class="grid gap-4 min-h-screen">
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <aside class="w-full md:w-1/5 p-4 md:p-6 md:fixed md:left-0 md:top-5">
+            <nav class="flex md:flex-col items-center md:items-start justify-center md:justify-start space-x-6 md:space-x-0 md:space-y-4 text-sm font-light">                
+                <a href="/" class="hover:underline">Home</a>
+                <div>Documentation:</div>
+                <ul class="list-disc pl-6">
+                    <li><a href="/glossary.html" class="hover:underline">Glossary</a></li>
+                    <li><a href="/consumption_unit.html" class="hover:underline">Consumption Unit (CRA)</a></li>
+                    <li><a href="/tribute_draft.html" class="hover:underline">Tribute Draft</a></li>
+                    <li><a href="/tribute.html" class="hover:underline">Tribute</a></li>
+                    <li><a href="/cra.html" class="hover:underline">CRA rewards</a></li>
+                </ul>
+                <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                <a href="https://github.com/outbe" class="hover:underline">Github</a>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+       <div class="p-4 md:ml-23 mt-6 md:mt-0 flex justify-center max-width">
+            <div>
+                <div>
+                    
+                    <h1 class="text-4xl sm:text-4xl font-light leading-none mb-12">CRA Reward Mechanism</h1>
+                    <div class="text-base sm:text-base leading-relaxed font-inter font-light">
+                        
+                        
+                        <p><em>June 2025</em></p>
+                                               
+                        <h2 class="font-semibold">Abstract</h2>
+                        <p>This document outlines a robust and dynamic reward mechanism intended to incentivize licensed data providers—<strong>Consumption Reflection Agents (CRAs)</strong>—for timely and accurate submission of aggregated acts of consumption data, termed <strong>Consumption Units (CUs)</strong>. The reward is dispensed in the protocol's native cryptocurrency token, <strong>coen</strong>, through synchronized global epochs lasting precisely <strong>24 hours</strong>.</p>
+                        
+                        <p>To guarantee continuous and stable participation from CRAs worldwide, the mechanism dynamically adjusts the <strong>reward pool</strong> each epoch based on two critical parameters:</p>
+                        
+                        <ol class="list-decimal ml-6 mb-4">
+                            <li><strong>CRA Participation Trends</strong>: On-chain usage metrics indicating changes in CRA activity levels.</li>
+                            <li><strong>Fiat Price Volatility</strong>: Real-time fiat price of coen, sourced from trusted external oracles.</li>
+                        </ol>
+                        
+                        <p>The mechanism operates under a strict emission cap parameter θ, limiting CRA reward allocations within a controlled fraction of total token minting per epoch, safeguarding monetary integrity and preventing uncontrolled inflation. It means that under some conditions reward pool may be capped that may lead to reduction of CRA rewards that may force less efficient CRAs to temporarily or permanently suspend their operation and reduce volume of submitted CUs. That is essentially a network self regulation and balancing approach</p>
+                        
+                        <p>Robust anti-manipulation protocols are embedded to mitigate potential gaming behaviors and secure oracle integrations, ensuring fairness, predictability, and protocol sustainability.</p>
+                        
+                        <p>The protocol's primary focus lies in the generation and validation of Consumption Units. It operates under the assumption that a substantial number of entities will align with the functional criteria of the Consumption Reflection Agent (CRA), each identifying their own strategic incentives for participation. Notably, the CRA is conceptualized as a functional role rather than a fixed institutional actor.</p>
+
+                        <h2 class="font-semibold">Glossary</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>Definition</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Consumption Reflection Agent (CRA)</strong></td>
+                                        <td><a href="https://docs.proton.me/doc?mode=open&volumeId=Nzy3Yw8wTEtbvz0EFdZK1Ze3lGYsRKTXI4vKIVkhaDS0GkfUNG6D2yEEXRxOaa2YZt2P8fH8KRVKtKqoFAbsfA%3D%3D&linkId=PUWPMtKr4smVuWLEqYcuuxayrKLX1b_vT3qUQ_wd2BIx6TxDnLP2SGeTrxPERkytORuqg_-hGcapa63Ehy7CeA%3D%3D" class="underline hover:text-blue-600">Foundation [Glossary]</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consumption Unit (CU)</strong></td>
+                                        <td><a href="https://docs.proton.me/doc?mode=open&volumeId=Nzy3Yw8wTEtbvz0EFdZK1Ze3lGYsRKTXI4vKIVkhaDS0GkfUNG6D2yEEXRxOaa2YZt2P8fH8KRVKtKqoFAbsfA%3D%3D&linkId=PUWPMtKr4smVuWLEqYcuuxayrKLX1b_vT3qUQ_wd2BIx6TxDnLP2SGeTrxPERkytORuqg_-hGcapa63Ehy7CeA%3D%3D" class="underline hover:text-blue-600">Foundation [Glossary]</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Coen</strong></td>
+                                        <td><a href="https://docs.proton.me/doc?mode=open&volumeId=Nzy3Yw8wTEtbvz0EFdZK1Ze3lGYsRKTXI4vKIVkhaDS0GkfUNG6D2yEEXRxOaa2YZt2P8fH8KRVKtKqoFAbsfA%3D%3D&linkId=PUWPMtKr4smVuWLEqYcuuxayrKLX1b_vT3qUQ_wd2BIx6TxDnLP2SGeTrxPERkytORuqg_-hGcapa63Ehy7CeA%3D%3D" class="underline hover:text-blue-600">Foundation [Glossary]</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Epoch (24h)</strong></td>
+                                        <td><a href="https://docs.proton.me/doc?mode=open&volumeId=Nzy3Yw8wTEtbvz0EFdZK1Ze3lGYsRKTXI4vKIVkhaDS0GkfUNG6D2yEEXRxOaa2YZt2P8fH8KRVKtKqoFAbsfA%3D%3D&linkId=PUWPMtKr4smVuWLEqYcuuxayrKLX1b_vT3qUQ_wd2BIx6TxDnLP2SGeTrxPERkytORuqg_-hGcapa63Ehy7CeA%3D%3D" class="underline hover:text-blue-600">Foundation [Glossary]</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Reward Pool (Pₙ)</strong></td>
+                                        <td>Total Coen allocated for CRA rewards in epoch <em>n</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>MaxEmissionₙ</strong></td>
+                                        <td>Upper limit on newly minted Coen per epoch <em>n</em>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Emission Cap (θ)</strong></td>
+                                        <td>Fraction of MaxEmissionₙ allocated for CRA rewards</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">System Logic</h2>
+
+                        <h3 class="font-semibold">1. Lifecycle Detailed Overview</h3>
+                        <p>Each epoch (24 hours) consists of three clearly defined phases:</p>
+
+                        <h4 class="font-semibold">Initiation</h4>
+                        <p>At epoch onset:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>The protocol fetches fiat exchange rates via decentralized oracles.</li>
+                            <li>It calculates reward projections based on previous participation trends and fiat stability targets.</li>
+                            <li>Initial reward pool P_n is set, respecting the emission cap. Emission cap will be defined in a subsequent phase and calibrated based on network maturity and ecosystem needs.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">CU Submission Phase</h4>
+                        <p>During the epoch:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>CRAs aggregate daily transactions into CUs.</li>
+                            <li>CUs must contain cryptographic hashes ensuring uniqueness and integrity.</li>
+                            <li>CUs are recorded on-chain (L2) with metadata. <a href="https://docs.proton.me/doc?mode=open&volumeId=P5wh1vdgaawJbCdPy7evSIxi-J-szT9CUKEmFo7jWuIqNtK8LPRSVLFeAAE58J2gGwHUsHX-CU6VbFvhoHfoUQ%3D%3D&linkId=QP7_54gfi12QVWpGhooKqfu8n0rQ1HiygLAc8GX3IC8-iptQNQzlRwDOhD6KtecaL2YTT96uHkPM56KvEUQO4Q%3D%3D" class="underline hover:text-blue-600">CRA Consumption Unit generation</a></li>
+                        </ul>
+
+                        <h4 class="font-semibold">Epoch Conclusion and Settlement</h4>
+                        <p>At epoch conclusion:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Protocol verifies CU validity and uniqueness.</li>
+                            <li>Final reward pool P_n is distributed proportionally among CRAs based on the number of valid submissions:</li>
+                        </ul>
+
+                        <div class="math-formula">
+                            Reward for CRA_i = (u_i / U_n) × P_n
+                        </div>
+
+                        <p>where:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>u_i is the number of valid submissions from CRA i.</li>
+                            <li>U_n is total valid submissions in epoch n.</li>
+                        </ul>
+
+                        <pre><code># [Reward Distribution]
+Reward_i = (u_i / U_n) * P_n
+# u_i   = valid CUs submitted by CRA i
+# U_n   = total valid CUs submitted by all CRAs in epoch n
+# P_n   = final coen reward pool for epoch n</code></pre>
+
+                        <h3 class="font-semibold">2. Reward Pool Calculation</h3>
+                        <p>Reward pool determination integrates behavioral and market data to optimize CRA compensation dynamically.</p>
+
+                        <h4 class="font-semibold">2.1. Input Metrics and Rationale</h4>
+                        <p>The pool uses two primary metrics:</p>
+
+                        <h4 class="font-semibold">CRA Participation Rate:</h4>
+                        <p>Tracks growth or decline in submission volumes, stabilizing incentives against participation variability using exponential moving average (EMA).</p>
+
+                        <h4 class="font-semibold">Fiat Stability Target:</h4>
+                        <p>Ensures rewards remain predictable in fiat-equivalent terms despite crypto price volatility.</p>
+
+                        <h4 class="font-semibold">2.2. Detailed Computational Formulas</h4>
+
+                        <h4 class="font-semibold">Participation-based Adjustment:</h4>
+                        <p>Calculate participation ratio (r_{n-1}):</p>
+
+                        <div class="math-formula">
+                            r_{n-1} = U_{n-1} / EMA_{n-2}
+                        </div>
+
+                        <p>Where:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>U_{n-1}: Actual submissions previous epoch.</li>
+                            <li>EMA_{n-2}: Historical participation baseline from preceding epochs.</li>
+                        </ul>
+
+                        <pre><code>r_n-1 = U_n-1 / EMA_n-2
+# r_n-1 = participation ratio
+# U_n-1 = actual CU submissions in previous epoch
+# EMA_n-2 = historical average CU submissions</code></pre>
+
+                        <p>Adjust pool size accordingly:</p>
+
+                        <div class="math-formula">
+                            P_usage = P_{n-1} × [1 + α (r_{n-1} - 1)]
+                        </div>
+
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>α: responsiveness factor (recommended range 0.05–0.2).</li>
+                        </ul>
+
+                        <pre><code>P_usage = P_n-1 * [1 + α * (r_n-1 - 1)]
+# P_n-1 = previous epoch reward pool
+# α     = responsiveness factor (e.g., 0.1)</code></pre>
+
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>If CRA activity <strong>increased</strong> compared to the past (i.e., r_{n-1} > 1), then P_usage <strong>grows</strong>.</li>
+                            <li>If CRA activity <strong>decreased</strong> (r_{n-1} < 1), then the reward pool <strong>shrinks</strong>.</li>
+                            <li>If participation is stable (r_{n-1} = 1), then the reward pool stays the <strong>same</strong> as before.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">Example:</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li><em>P_{n-1} = 10,000</em></li>
+                            <li><em>α = 0.1</em></li>
+                            <li><em>r_{n-1} = 1.2 (20% more CRA submissions than usual)</em></li>
+                        </ul>
+
+                        <p><em>Then:</em></p>
+                        <p><em>P_usage = 10,000 × [1 + 0.1 × (1.2 − 1)] = 10,000 × 1.02 = 10,200 coen</em></p>
+                        <p><em>So the reward pool grows by 2%.</em></p>
+
+                        <hr class="border-t border-gray-300 my-6">
+
+                        <h4 class="font-semibold">Fiat-based Stability Adjustment:</h4>
+                        <p>Maintain a targeted fiat-equivalent per CU:</p>
+
+                        <div class="math-formula">
+                            P_fiat = (T_fiat × Û_n) / Price_n
+                        </div>
+
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>T_fiat: Fiat target per CU (set by governance, e.g., $1.50 per CU).</li>
+                            <li>Û_n: Predicted CU submissions (EMA-based forecast).</li>
+                            <li>Price_n: Fiat-to-coen exchange rate.</li>
+                        </ul>
+
+                        <pre><code># [Fiat-Based Pool Adjustment]
+P_fiat = (T_fiat * Ũ_n) / Price_n
+# T_fiat  = fiat target reward per CU (e.g., 1.50 USD)
+# Ũ_n     = forecasted CU submissions (via EMA)
+# Price_n = coen to fiat exchange rate</code></pre>
+
+                        <h4 class="font-semibold">Example:</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li><em>T_fiat = 1.50 USD per CU</em></li>
+                            <li><em>Û_n = 5,000 CUs (forecast)</em></li>
+                            <li><em>Price_n = 0.75 USD per coen</em></li>
+                        </ul>
+
+                        <p><em>Then:</em></p>
+                        <p><em>P_fiat = (1.50 × 5,000) / 0.75 = 7,500 / 0.75 = 10,000 coen</em></p>
+                        <p><em>So, you need to allocate <strong>10,000 coen</strong> to the reward pool to ensure that CRAs are paid <strong>$1.50 worth of value per CU</strong> at the current token price.</em></p>
+
+                        <p><em>There are several adjustments expecting for this Section.</em></p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li><strong>CU Pricing Formula</strong>: If the CRA exhibits growth in CU volume, the price per CU should decrease.</li>
+                            <li><strong>Volume Adjustment</strong>: The greater the number of CUs allocated, the lower the price per CU.</li>
+                            <li><strong>Exchange Rate Adjustment</strong>: If the exchange rate increases, CU allocation should be reduced accordingly.</li>
+                        </ul>
+
+                        <hr class="border-t border-gray-300 my-6">
+
+                        <h4 class="font-semibold">Final Reward Pool Determination:</h4>
+                        <p>Combine projections with emission cap enforcement:</p>
+
+                        <div class="math-formula">
+                            P_n = min(θ · MaxEmission_n, max(P_usage, P_fiat))
+                        </div>
+
+                        <pre><code># [Final Reward Pool Calculation]
+P_n = min(θ * MaxEmission_n, max(P_usage, P_fiat))
+# θ = emission cap fraction (e.g., 0.08)
+# MaxEmission_n = max mintable coen this epoch</code></pre>
+
+                        <h4 class="font-semibold">Step-by-step:</h4>
+                        <p>1. Take the higher of:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>P_usage (activity-driven)</li>
+                            <li>P_fiat (fiat-equivalent driven)</li>
+                        </ul>                        
+                        <p>2. Enforce hard cap: </p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Compare that number to θ · MaxEmission_n → Only allow rewards up to the emission cap.</li>
+                        </ul>                        
+                        <p>3. Final reward pool P_n is the smaller of the two. The smaller value between:</p>                           
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>The suggested reward pool (from Step 1), and</li>
+                            <li>The hard cap value (from Step 2)</li>
+                        </ul>                        
+
+                        <h3 class="font-semibold">3. Anti-Manipulation Mechanisms</h3>
+
+                        <h4 class="font-semibold">Minimum Activity Threshold</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Epoch reward pools may be partially or fully withheld if total CU submissions fall below a governance-defined minimum (minUnits), preventing strategic withholding to increase subsequent pools.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">Oracle Attack Mitigation</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Utilize decentralized multi-oracle median pricing.</li>
+                            <li>Reject abnormal price deviations exceeding predefined thresholds.</li>
+                            <li>Automatic fallback to participation-based rewards if oracle data becomes compromised.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">CRA Bonding (Optional Security Layer)</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Optional coen staking by CRAs, creating direct economic accountability.</li>
+                            <li>Stake forfeiture (slashing) enforced for fraudulent or negligible participation.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">Threshold-Based CU Submission Limits</h4>
+                        <p>To maintain healthy protocol operations and guard against outliers, the network dynamically enforces <strong>minimum and maximum CU submission thresholds</strong> per epoch. These are computed based on the Exponential Moving Average (EMA) of CU submissions over a defined recent window (e.g., last 5 epochs).</p>
+
+                        <p>Let:</p>
+                        <ul class="list-disc ml-8">
+                            <li>EMA_n: 5-epoch exponential moving average of total CU submissions</li>
+                            <li>T_min = β_min · EMA_n: minimum threshold</li>
+                            <li>T_max = β_max · EMA_n: maximum threshold</li>
+                        </ul>
+                        <p>Where:</p>
+                            <ul class="list-disc ml-8">
+                                <li>β_min ∈ [0.5, 0.8] (e.g., set to 0.6), so protocol expects CRAs to submit <strong>at least 50–80% of the recent average number of CUs</strong> in each epoch — otherwise, their rewards may be reduced or blocked</li>
+                                <li>β_max ∈ [1.2, 2.0] (e.g., set to 1.5), so the protocol allows to exceed on max 200%</li>
+                            </ul>
+
+                        <pre><code># [Global CU Submission Thresholds]
+EMA_n = λ * U_n + (1 - λ) * EMA_n-1
+# λ     = smoothing factor (e.g., 0.4)
+# U_n   = total CU submissions in current epoch
+
+T_min = β_min * EMA_n
+T_max = β_max * EMA_n
+# β_min ∈ [0.5, 0.8] → min submission threshold
+# β_max ∈ [1.2, 2.0] → max submission threshold</code></pre>
+
+                        <p>The protocol will:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li><strong>Reject</strong> or <strong>withhold rewards</strong> for submissions if U_n < T_min (to prevent under-reporting).</li>
+                            <li><strong>Cap reward eligibility</strong> if U_n > T_max (to prevent spamming).</li>
+                        </ul>
+
+                        <p>These thresholds are computed <strong>on-chain</strong> per epoch during the reward pool initialization phase using standard EMA logic:</p>
+
+                        <div class="math-formula">
+                            EMA_n = λ · U_n + (1 − λ) · EMA_{n−1}
+                        </div>
+
+                        <p>Where λ is the smoothing factor (e.g., 0.3–0.5)</p>
+                        <p>U_n: actual CU submissions in the current epoch</p>
+
+                        <h4 class="font-semibold">1-4 Epochs:</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Epoch</th>
+                                        <th>EMA Source</th>
+                                        <th>T_min / T_max</th>
+                                        <th>Enforcement Mode</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><code>EMA_1 = U_1</code></td>
+                                        <td>None</td>
+                                        <td>Not enforced</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2–4</td>
+                                        <td>Simple average</td>
+                                        <td>Computed</td>
+                                        <td>Alert-only / soft flag</td>
+                                    </tr>
+                                    <tr>
+                                        <td>≥5</td>
+                                        <td>True EMA</td>
+                                        <td>Fully dynamic</td>
+                                        <td>Full enforcement</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4 class="font-semibold">Alert Notice for Anomalous CRA Behavior</h4>
+                        <p>To further enhance network resilience, the protocol includes <strong>anomaly detection alerts</strong> based on submission volume trends per agent.</p>
+
+                        <p>If a CRA's CU submission count deviates significantly (above or below a defined variance threshold) from its 5-day EMA baseline, an <strong>alert flag is raised</strong> for network monitoring.</p>
+
+                        <p>Let:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>s_i(t): CU submissions from CRA i on day t</li>
+                            <li>μ_i: 5-day EMA of CRA i's historical submissions</li>
+                            <li>δ: Sensitivity threshold for flagging anomalies (e.g. 0.4 means ±40%)</li>
+                            <li>Alert condition (= an alert raised if): |s_i(t) − μ_i| / μ_i > δ</li>
+                        </ul>
+
+                        <pre><code># [CRA Anomaly Detection]
+Alert_if: |s_i(t) - μ_i| / μ_i > δ
+# s_i(t) = CRA i's daily CU submission count
+# μ_i    = 5-day EMA of CRA i's submissions
+# δ      = anomaly threshold (e.g., 0.4 for ±40%)</code></pre>
+
+                        <p>This means:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>If the CRA's daily submission count <strong>deviates by more than δ·100%</strong> from its average, it's considered <strong>anomalous</strong></li>
+                            <li><strong>Symmetric</strong>: It flags both unusually <strong>high</strong> or <strong>low</strong> activity</li>
+                        </ul>
+
+                        <h4 class="font-semibold">Example:</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>μ_i = 1,000 (CRA normally submits ~1,000 CUs/day)</li>
+                            <li>δ = 0.4 (40% threshold)</li>
+                            <li>Alert is raised if daily count is <strong>less than 600</strong> or <strong>more than 1,400</strong></li>
+                        </ul>
+
+                        <p>Triggering an alert:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li><strong>Does not block submissions</strong>, but marks them for review. CRA can be notified by warning NFT or simple transaction.</li>
+                            <li>Can optionally be linked to <strong>slashing</strong>, <strong>cool-down</strong>, or <strong>bonus ineligibility</strong> based on governance policy.</li>
+                        </ul>
+
+                        <p>These flags are:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Logged on-chain.</li>
+                            <li>Available via explorer or monitoring API.</li>
+                            <li>Evaluated at the end of each epoch alongside CU validation.</li>
+                            <li>While alerts don't alter <code>P_n</code>, they <strong>complement thresholds</strong> by flagging <strong>rate-of-change</strong>, not just absolute numbers.</li>
+                            <li>Also used for <strong>future stake weighting</strong>, or <strong>CRA slashing logic</strong>.</li>
+                        </ul>
+
+                        <h4 class="font-semibold">CRA Bonding Deposit Formula</h4>
+                        <p>To prevent manipulation in the consumption reflection process, a self-bonding mechanism is defined for the OUTBE network. CRA bonding is applied in defined number of days (for example 100) after the CRA begins submitting Consumption Units (CUs) to the network. The exact period will be defined in subsequent period.</p>
+
+                        <div class="math-formula">
+                            Bond_i = B_base + B_scale · Û_i
+                        </div>
+
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Bond_i: Required deposit for CRA i</li>
+                            <li>B_base: Minimum fixed base bond (e.g., 1,000 coen)</li>
+                            <li>B_scale: <strong>How much extra bond</strong> is required <strong>per CU</strong></li>
+                            <li>Û_i: CRA's expected or declared CU submission volume per epoch (or average over past epochs)</li>
+                        </ul>
+
+                        <pre><code># [CRA Bonding Formula]
+Bond_i = B_base + B_scale * Ũ_i
+# B_base = fixed minimum bond (e.g., 1,000 coen)
+# Ũ_i    = declared or average CU volume per epoch
+
+B_scale = (EpochsUntilUnbonding * Ũ_i) / MaxSlashingRisk
+# EpochsUntilUnbonding = bonding lock period (e.g., 3 epochs)
+# MaxSlashingRisk      = worst-case loss the protocol must cover</code></pre>
+
+                        <div class="math-formula">
+                            B_scale = (EpochsUntilUnbonding × Û_i) / MaxSlashingRisk
+                        </div>
+
+                        <p>Where:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li><strong>MaxSlashingRisk</strong> = estimated worst-case damage (e.g., 1–2 full reward epochs)</li>
+                            <li><strong>Unbonding period</strong> = how long stake is locked (e.g., 3 epochs)</li>
+                        </ul>
+
+                        <p>This ensures the bond can <strong>cover at least one round of fraudulent over-reporting or abuse</strong>.</p>
+                        <p>So if a CRA commits fraud (e.g., submitting duplicate CUs), their bond is <strong>slashed</strong>.</p>
+
+                        <h4 class="font-semibold">Initial CRA Offer Logic:</h4>
+                            <p>1. Starting Price: 0.001 USDT (coen) per CU</p>
+                            <p>2. Initial Offer: Set by protocol on-chain</p>
+                            <p>3. Validation: </p>
+                            <ul class="list-disc ml-8">
+                                <li>If CRA submits → protocol accepts → reward confirmed</li>
+                                <li>If no submission → reward offer adjusted downward</li>
+                            </ul>
+                            <p>4. Reward Multiplier Example: </p>
+                                <ul class="list-disc ml-8">
+                                    <li>Target reward: 0.06 USDT</li>
+                                    <li>GM: 20% → base = 0.05</li>
+                                    <li>Implied multiplier: 0.06 / 0.001 = 60x</li>
+                                </ul>
+
+                        <p>Main incentive for CRAs is not reward. It's the value they bring to their customers by enabling consumption reflection.</p>
+
+                        <h3 class="font-semibold">4. Emission Cap Rationale and Enforcement</h3>
+                        <p>To prevent inflationary risks:</p>
+
+                        <div class="math-formula">
+                            P_n ≤ θ · MaxEmission_n
+                        </div>
+
+                        <pre><code># [Emission Cap Constraint]
+P_n ≤ θ * MaxEmission_n
+# Prevents inflation beyond configured policy</code></pre>
+
+                        <p>This ensures token supply growth aligns with protocol-defined sustainable economic policy. Note that Emission cap will be defined in a subsequent phase and calibrated based on network maturity and ecosystem needs.</p>
+
+                        <h3 class="font-semibold">5. Comprehensive Workflow Example (Step-by-Step)</h3>
+                            <p><strong>1. Epoch Start</strong></p>
+                                <ul class="list-disc ml-8">
+                                    <li>Oracle and usage data acquisition.</li>
+                                    <li>Compute initial reward pool using defined formulas.</li>
+                                </ul>
+                            <p><strong>2. Active Submission Period</strong></p>
+                                <ul class="list-disc ml-8">
+                                    <li>CRAs aggregate, hash, and submit CUs daily.</li>
+                                    <li>Protocol transparently logs submission data.</li>
+                                </ul>
+                            <p><strong>3. Epoch End and Validation</strong></p>
+                                <ul class="list-disc ml-8">
+                                    <li>Validate CUs for uniqueness and authenticity.</li>
+                                    <li>Calculate and distribute rewards proportionally to submission count.</li>
+                                </ul>
+                            <p><strong>4. Preparation for Next Epoch</strong></p>
+                                <ul class="list-disc ml-8">
+                                    <li>Update EMA-based participation metrics.</li>
+                                    <li>Oracle prices refreshed.</li>
+                                    <li>Reward pool recalculated based on evolving metrics.</li>
+                                </ul>
+
+                        <h3 class="font-semibold">6. Economic and Operational Implications</h3>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li><strong>CRA Predictability</strong>: Consistent fiat-targeted rewards mitigate market volatility risks, enhancing operational sustainability.</li>
+                            <li><strong>Protocol Resilience</strong>: Flexible adjustments protect from sudden participation drops or token market shocks.</li>
+                            <li><strong>Community Trust</strong>: Transparency and robust anti-manipulation safeguards foster a trusted protocol ecosystem.</li>
+                        </ul>
+
+                        <p>The detailed CRA reward mechanism proposed here delivers a sustainable, equitable, and adaptive economic model. By closely tying real-world CRA operational expenses to a dynamic crypto-based reward framework, it ensures continuous participation, predictable rewards, and robust economic integrity. This adaptive mechanism serves as the economic backbone for stable, long-term protocol engagement.</p>
+
+                        <h3 class="font-semibold">7. Dashboards (Planned)</h3>
+                        <p>These metrics are currently under consideration and may be defined and adjusted in future dashboard iterations for outbe network.</p>
+
+                        <h4 class="font-semibold">CRA Dashboard (Private)</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Wallet info (connected address)</li>
+                            <li>Total CUs submitted</li>
+                            <li>Current reward per CU (live + EMA)</li>
+                            <li>Rewards earned (USDT equivalent)</li>
+                            <li>Reward history (graph)</li>
+                            <li>Avg reward per CU</li>
+                        </ul>
+
+                        <h4 class="font-semibold">Public CRA Stats</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Total rewards distributed</li>
+                            <li>Avg reward per CU (network-wide)</li>
+                            <li>Total CUs submitted</li>
+                            <li>Active CRA count</li>
+                        </ul>
+
+                        <h4 class="font-semibold">General System Dashboard</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Total consumption reflected</li>
+                            <li>Total rewards paid</li>
+                            <li>CU submission trends</li>
+                            <li>Consumption by timezone</li>
+                            <li>Token reward rate (current + EMA)</li>
+                            <li>Avg reward pool balance</li>
+                        </ul>
+
+                        <h4 class="font-semibold">CRA Onboarding View</h4>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Est. reward per CU (example calc)</li>
+                            <li>How it works (short guide)</li>
+                            <li>Connect wallet CTA</li>
+                        </ul>
+
+                        <h2 class="font-semibold">Attributes</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Attribute</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>P_n</code></td>
+                                        <td>Final reward pool (coen) for epoch <em>n</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>P_usage</code></td>
+                                        <td>Reward pool suggested by CRA activity trend</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>P_fiat</code></td>
+                                        <td>Reward pool needed to meet fiat-equivalent target</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>θ</code></td>
+                                        <td>Emission cap (e.g., 0.08 or 8%)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>MaxEmission_n</code></td>
+                                        <td>Max tokens allowed to be minted this epoch</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>U_n</code></td>
+                                        <td>Total valid CUs submitted this epoch</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>u_i</code></td>
+                                        <td>Valid CUs submitted by CRA <em>i</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>T_fiat</code></td>
+                                        <td>Fiat-equivalent reward per CU (e.g., $1.50)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Price_n</code></td>
+                                        <td>Exchange rate: coen to fiat</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>EMA_n</code></td>
+                                        <td>Participation moving average (5-epoch window)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>β_min</code>, <code>β_max</code></td>
+                                        <td>Threshold multipliers for min/max CU volume</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>δ</code></td>
+                                        <td>Deviation threshold for CRA anomaly alert (e.g., 0.4)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>λ</code></td>
+                                        <td>Smoothing factor for EMA (e.g., 0.4)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>minUnits</code></td>
+                                        <td>Minimum CU volume to trigger full pool release</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">Appendix</h2>
+
+                        <h3 class="font-semibold">Formulas schema</h3>
+
+                        <pre><code># ===============================
+# CRA Reward Mechanism Formulas
+# Format: INI-style math references
+# ===============================
+
+# --- [1] CRA Reward Distribution ---
+Reward_i = (u_i / U_n) * P_n
+# u_i   = valid CUs submitted by CRA i
+# U_n   = total valid CUs submitted by all CRAs in epoch n
+# P_n   = final coen reward pool for epoch n
+
+# --- [2] Participation-Based Pool Adjustment ---
+r_n-1 = U_n-1 / EMA_n-2
+# r_n-1 = participation ratio
+# U_n-1 = actual CU submissions in previous epoch
+# EMA_n-2 = historical average CU submissions
+
+P_usage = P_n-1 * [1 + α * (r_n-1 - 1)]
+# P_n-1 = previous epoch reward pool
+# α     = responsiveness factor (e.g., 0.1)
+
+# --- [3] Fiat-Based Pool Adjustment ---
+P_fiat = (T_fiat * Ũ_n) / Price_n
+# T_fiat  = fiat target reward per CU (e.g., 1.50 USD)
+# Ũ_n     = forecasted CU submissions (via EMA)
+# Price_n = coen to fiat exchange rate
+
+# --- [4] Final Reward Pool with Emission Cap ---
+P_n = min(θ * MaxEmission_n, max(P_usage, P_fiat))
+# θ              = emission cap fraction (e.g., 0.08)
+# MaxEmission_n  = max mintable coen this epoch
+
+# --- [5] Submission Thresholds (Global) ---
+EMA_n = λ * U_n + (1 - λ) * EMA_n-1
+# λ     = smoothing factor (e.g., 0.4)
+# U_n   = total CU submissions in current epoch
+
+T_min = β_min * EMA_n
+T_max = β_max * EMA_n
+# β_min ∈ [0.5, 0.8]  → min submission threshold
+# β_max ∈ [1.2, 2.0]  → max submission threshold
+
+# --- [6] Anomaly Detection (Per CRA) ---
+Alert_if: |s_i(t) - μ_i| / μ_i > δ
+# s_i(t) = CRA i's daily CU submission count
+# μ_i    = 5-day EMA of CRA i's submissions
+# δ      = anomaly threshold (e.g., 0.4 for ±40%)
+
+# --- [7] CRA Bonding Requirement ---
+Bond_i = B_base + B_scale * Ũ_i
+# B_base = fixed minimum bond (e.g., 1,000 coen)
+# Ũ_i    = declared or average CU volume per epoch
+
+B_scale = (EpochsUntilUnbonding * Ũ_i) / MaxSlashingRisk
+# EpochsUntilUnbonding = bonding lock period (e.g., 3)
+# MaxSlashingRisk      = worst-case loss to protocol
+
+# --- [8] Emission Cap Check ---
+P_n ≤ θ * MaxEmission_n
+# Ensures token emissions stay within inflation limits
+
+# --- [9] Minimum Volume Requirement ---
+If U_n < minUnits → P_n may be withheld or reduced
+# minUnits = protocol-defined minimum CU volume to release full pool</code></pre>
+                    </div>
+                </div>
+                
+                <div class="text-sm font-light mt-10 flex justify-center space-x-6"> 
+                    <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
