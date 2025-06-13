@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <title>Tribute - outbe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+                ubuntuMono: ['"Ubuntu Mono"', 'monospace'],
+              }
+            }
+          }
+        }
+      </script>
+
+    <style>
+        p {
+            max-width: 70ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            margin-bottom: 1rem !important;
+            
+        }
+        h1 {
+            margin-bottom: 1rem !important;
+        }
+        h2 {
+            font-size: 1.3rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h3 {
+            font-size: 1.2rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h4 {
+            font-size: 1.1rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .formula {
+            font-style: italic;
+            margin: 1em 0;
+        }
+
+        li {
+            margin-left: 1em;
+            margin-bottom: 0.5em;
+            max-width: 70ch; 
+            white-space: pre-wrap;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 1rem 0;
+            max-width: 70ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            font-size: 0.8rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+    </style>
+</head>
+
+
+<body class="bg-[#FDFCFB] p-6 text-black font-inter min-h-screen">
+    <div class="grid gap-4 min-h-screen">
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <aside class="w-full md:w-1/5 p-4 md:p-6 md:fixed md:left-0 md:top-5">
+            <nav class="flex md:flex-col items-center md:items-start justify-center md:justify-start space-x-6 md:space-x-0 md:space-y-4 text-sm font-light">                
+                <a href="/" class="hover:underline">Home</a>
+                <div>Documentation:</div>
+                <ul class="list-disc pl-6">
+                    <li><a href="/glossary.html" class="hover:underline">Glossary</a></li>
+                    <li><a href="/consumption_unit.html" class="hover:underline">Consumption Unit (CRA)</a></li>
+                    <li><a href="/tribute_draft.html" class="hover:underline">Tribute Draft</a></li>
+                    <li><a href="/tribute.html" class="hover:underline">Tribute</a></li>
+                    <li><a href="/cra.html" class="hover:underline">CRA rewards</a></li>
+                </ul>
+                <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                <a href="https://github.com/outbe" class="hover:underline">Github</a>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <div class="p-4 md:ml-24 md:mr-10 mt-6 md:mt-0 flex justify-center max-width">
+            <div>
+                <div>
+                    <!-- <p class="font-mono text-xl">Gratis to the Consumer: Reframing Capital Gain as Symbolic Recognition of the Act of Consumption</p> -->
+                    <h1 class="text-4xl sm:text-4xl font-light leading-none mb-12">Tribute</h1>
+                    <div class="text-base sm:text-base leading-relaxed font-inter font-light">    
+                        <p>May 2025</p>
+                        <h2 class="font-semibold">1. Abstract</h2>
+                        <p>A Tribute is a reflection of a user's Acts of Consumption, recorded on the network. It is created by combining one or more of the user's Consumption Units (CUs) into a single unit, which is then submitted through the Wallet App.</p>
+                        <p>The Tribute is considered valid if submitted within 24 hours after local day end.</p>
+                        <p>On Green Days, all tributes are eligible for Lysis, with unrecognised tributes also eligible for Touch. On Red Days all tributes are eligible for Touch only.</p>
+                        <p>During the Lysis, accounts that have offered Tributes may be recognized with Nods. Each Nod includes its own Floor Price condition: Gratis (a non-transferable fungible token) will be issued against that Nod when the market price of the Coen rises above its assigned Floor Price.</p>
+
+                        <h2 class="font-semibold">2. Glossary</h2>
+                        <p>Consumption Unit, Consumption Register Agent (CRA), Tribute, Nod, Green Day, Red Days, Settlement Token</p>
+                        <p><strong>[see <a href="https://docs.proton.me/doc?mode=open&volumeId=Nzy3Yw8wTEtbvz0EFdZK1Ze3lGYsRKTXI4vKIVkhaDS0GkfUNG6D2yEEXRxOaa2YZt2P8fH8KRVKtKqoFAbsfA%3D%3D&linkId=PUWPMtKr4smVuWLEqYcuuxayrKLX1b_vT3qUQ_wd2BIx6TxDnLP2SGeTrxPERkytORuqg_-hGcapa63Ehy7CeA%3D%3D" class="underline hover:text-blue-600">glossary</a> for up to date description]</strong></p>
+
+                        <h2 class="font-semibold">3. System Logic</h2>
+                        <p>Note: See Consumption Unit [link]</p>
+                        <ol class="list-decimal ml-6 mb-4">
+                            <li>User initiates submission of Tribute on the Network via the Wallet App.</li>
+                            <li><strong>Tribute Smart Contract</strong> on the Network ensures the initial Tribute is signed by both CRA and Wallet App using electronic fingerprints (signature hashes) and verifies there're no duplicates of the CRs in Tributes among existing on the network.</li>
+                            <li>All daily <strong>Tributes</strong> are burned after all daily Lysis and a Touch are over.</li>
+                        </ol>
+
+                        <h2 class="font-semibold">4. Attributes</h2>
+                        <p>Consumption Unit on the Network should have the following attributes:</p>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Field Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td><code>tribute_id</code></td>
+                                    <td>string</td>
+                                    <td>id</td>
+                                    <td>0x1234abcd5678ef901234abcd5678ef901234abcd</td>
+                                </tr>
+                                <tr>
+                                    <td><code>settlement_amount_minor</code></td>
+                                    <td>integer [10^6]</td>
+                                    <td>Value of the Tribute in Settlement Tokens</td>
+                                    <td>1500.23</td>
+                                </tr>
+                                <tr>
+                                    <td><code>settlement_token</code></td>
+                                    <td>string</td>
+                                    <td>Settlement Token is used for account.</td>
+                                    <td>"USD"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>nominal_qty_minor</code></td>
+                                    <td>integer [10^18]</td>
+                                    <td>Value of the Tribute in coens</td>
+                                    <td>300.046</td>
+                                </tr>
+                                <tr>
+                                    <td><code>nominal_rate_minor</code></td>
+                                    <td>integer</td>
+                                    <td>Volume weighted rate<br><br>settlement_amount_minor/nominal_qty_minor</td>
+                                    <td>5</td>
+                                </tr>
+                                    <tr>
+                                    <td><code>owner</code></td>
+                                    <td>string</td>
+                                    <td>Address where the NFT will be minted.</td>
+                                    <td>0x1234abcd5678ef901234abcd5678ef901234abcd</td>
+                                </tr>
+                                <tr>
+                                    <td><code>symbolic_rate</code></td>
+                                    <td>integer [10^6]</td>
+                                    <td>System global variable</td>
+                                    <td>0.08</td>
+                                </tr>
+                                <tr>
+                                    <td><code>symbolic_divisor</code></td>
+                                    <td>integer [10^6]</td>
+                                    <td>Divisor to calculate symbolic_load<br><br>nominal_rate_minor * (1+symbolic_rate)</td>
+                                    <td>5*(1+0.08)=5.4</td>
+                                </tr>
+                                <tr>
+                                    <td><code>symbolic_load</code></td>
+                                    <td>integer [10^18]</td>
+                                    <td>Signals an eligible interest to the network<br><br>settlement_amount_minor * symbolic_rate/symbolic_divisor</td>
+                                    <td>1500*0.08/5.4=22.(2)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>is_valid</code></td>
+                                    <td>boolean</td>
+                                    <td>Ensures all CUs are verified and signed by both CRA and Wallet</td>
+                                    <td>true</td>
+                                </tr>
+                                    <tr>
+                                    <td><code>tribute_date</code></td>
+                                    <td>date</td>
+                                    <td>Date of the Consumption</td>
+                                    <td>2025-04-07</td>
+                                </tr>
+                                <tr>
+                                    <td><code>created_at</code></td>
+                                    <td>timestamp</td>
+                                    <td>Time when the Tribute NFT was created on the network</td>
+                                    <td>2025-04-08T14:35:22Z</td>
+                                </tr>
+                                <tr>
+                                    <td><code>updated_at</code></td>
+                                    <td>timestamp</td>
+                                    <td>Last updated time</td>
+                                    <td>2025-04-09T16:00:00Z</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <h2 class="font-semibold">5. Commands</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Command</th>
+                                        <th>Arguments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>offer()</code></td>
+                                        <td>for each CU1, CU2, CU3 and etc<br><br>string settlement_token,<br><br>integer settlement_amount_minor,<br><br>integer nominal_qty_minor,<br><br>date tribute_date<br><br>string CRA signature hash<br><br>string UserApp signature hash<br><br>string CU checksum hash (to check uniqueness)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">7 Appendix</h2>
+                        <p>To offer a Tribute to the network, use the <code>offer()</code> command with the following JSON format:</p>
+                        <p>coin_minor_rate, coin_minor_qty are missing</p>
+                        <p>why 2 messages. 1 account can only do one Tribute per day.</p>
+
+                        <pre><code class="language-javascript">{
+  "command": "offer",
+  "payload": [
+    {
+      "tribute_id": "0xabc123abc123abc123abc123abc123abc123abcd",
+      "settlement_token": "USD",
+      "settlement_amount_minor": 1500.23,
+      "nominal_qty_minor": 300.046,
+      "tribute_date": "2025-04-07",
+      "address": "0x1234abcd5678ef901234abcd5678ef901234abcd"
+    },
+    {
+      "tribute_id": "0xdef456def456def456def456def456def456def0",
+      "settlement_token": "USD",
+      "settlement_amount_minor": 2000,
+      "nominal_qty_minor": 400,
+      "tribute_date": "2025-04-07",
+      "address": "0x9876fedcba9876543210fedcba9876543210fedc"
+    }
+  ]
+}</code></pre>
+                    </div>
+                </div>
+                <div id="manifestContent" class="text-base sm:text-base leading-relaxed font-inter font-light">                    
+                <div class="text-sm font-light mt-10 flex justify-center space-x-6"> 
+                    <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                </div>
+                </div>
+
+                <!-- <div class="mb-10" style="text-align: center;">
+                    <a id="readManifestBtn" href="#" class="mx-auto">Read All Paper &#8595;</a>
+                </div>
+                <div id="manifestContent" class="text-base sm:text-sm leading-relaxed font-inter font-light hidden">                    
+                </div> -->
+            </div>
+        </div>
+
+        <!-- <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const readManifestBtn = document.getElementById('readManifestBtn');
+                const manifestContent = document.getElementById('manifestContent');
+                
+                readManifestBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Hide the button
+                    readManifestBtn.parentElement.classList.add('hidden');
+                    // Show the content
+                    manifestContent.classList.remove('hidden');
+                });
+            });
+        </script> -->
+</body>
+
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <title>Tribute Draft - outbe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+                ubuntuMono: ['"Ubuntu Mono"', 'monospace'],
+              }
+            }
+          }
+        }
+      </script>
+
+    <style>
+        p {
+            max-width: 70ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            margin-bottom: 1rem !important;
+            
+        }
+        h1 {
+            margin-bottom: 1rem !important;
+        }
+        h2 {
+            font-size: 1.3rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h3 {
+            font-size: 1.2rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h4 {
+            font-size: 1.1rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .formula {
+            font-style: italic;
+            margin: 1em 0;
+        }
+
+        li {
+            margin-left: 1em;
+            margin-bottom: 0.5em;
+            max-width: 70ch; 
+            white-space: pre-wrap;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 1rem 0;
+            max-width: 70ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            font-size: 0.8rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FDFCFB] p-6 text-black font-inter min-h-screen">
+    <div class="grid gap-4 min-h-screen">
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <aside class="w-full md:w-1/5 p-4 md:p-6 md:fixed md:left-0 md:top-5">
+            <nav class="flex md:flex-col items-center md:items-start justify-center md:justify-start space-x-6 md:space-x-0 md:space-y-4 text-sm font-light">                
+                <a href="/" class="hover:underline">Home</a>
+                <div>Documentation:</div>
+                <ul class="list-disc pl-6">
+                    <li><a href="/glossary.html" class="hover:underline">Glossary</a></li>
+                    <li><a href="/consumption_unit.html" class="hover:underline">Consumption Unit (CRA)</a></li>
+                    <li><a href="/tribute_draft.html" class="hover:underline">Tribute Draft</a></li>
+                    <li><a href="/tribute.html" class="hover:underline">Tribute</a></li>
+                    <li><a href="/cra.html" class="hover:underline">CRA rewards</a></li>
+                </ul>
+                <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                <a href="https://github.com/outbe" class="hover:underline">Github</a>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <div class="p-4 md:ml-23 mt-6 md:mt-0 flex justify-center max-width">
+            <div>
+                <div>
+                    <h1 class="text-4xl sm:text-4xl font-light leading-none mb-12">Tribute Draft</h1>
+                    <div class="text-base sm:text-base leading-relaxed font-inter font-light">
+                        
+                        <p>June 2025</p>
+                        
+                        <h2 class="font-semibold">1. Abstract</h2>
+                        <p>A Tribute Draft is a reflection of a user's Acts of Consumption, recorded on the L2 Network. It is created by combining one or more of the user's Consumption Units (CUs) into a single unit, which is then created on L2 after the end of the World Wide Day.</p>
+
+                        <h2 class="font-semibold">2. Glossary</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>Definition</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Coen</strong></td>
+                                        <td><p>is a digital asset on Network whose value directly reflects Users' economic activities. Native Coins are minted strictly according to Emission Limit rules and are tradable freely on Exchanges.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consumption Reflection Agent (CRA)</strong></td>
+                                        <td><p>is a regulated entity responsible for retrieving, verifying, and posting transaction data. CRAs generate Consumption Units by aggregating a Consumption Records and confirming their legitimacy. They act as the bridge between traditional financial systems and the network's on-chain value creation.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consumption Unit (CU)</strong></td>
+                                        <td><p>is an entity representing a batch of Consumption Records aggregated daily per bank account. Each Consumption Unit qualifies as a whole for Tribute issuance and serves as the basis for Tribute allocation.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Settlement Token</strong></td>
+                                        <td><p>is a Stable Token specifically approved through Governance Protocol for settlement purposes on Network. Network supports multiple Stable Tokens, but only a limited subset of these are designated as Settlement Tokens.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tribute</strong></td>
+                                        <td><p>is an option granting Users the right to mint Gratis, determined by the economic value captured from their Consumption Units. When a Tribute is Issued, it uses data from these Consumption Units to define specific conditions and attributes required for Gratis minting.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Wallet</strong></td>
+                                        <td><p>is a digital tool on Network that securely stores and manages cryptographic keys. It doesn't hold digital assets themselves but provides Users with secure access to their assets on Network, enabling Users to send, receive, and manage Native Coins and Stable Tokens (including Settlement Tokens). Each Wallet manages a Private Key, which authorises transactions and generates the Public Key used to derive the Account Address.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Worldwide Day</strong></td>
+                                        <td><p>is a 48-hour period that spans all global time zones, from UTC+14 to UTC−12. It is used as the standard temporal unit for synchronising Epochs, network operations, and global activity across the Network.</p></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">3. System Logic</h2>
+                        <p>The <strong>L2 Consumption Network</strong> is a secondary blockchain layer designed to handle high-throughput, manipulation-resistant reflection of user consumption behavior. It serves the <strong>CRA (Consumption Reflection Agent) community</strong> by offering an environment for submitting, validating, and consolidating <strong>Consumption Units (CUs)</strong> with a further logic of consolidation into <strong>Tribute Drafts</strong> — structured digital reflections of real-world user consumption.</p>
+                        <p>This specialized L2 supports:</p>
+                        <ul class="list-disc ml-6 mb-4">
+                            <li>Submission and deduplication of <strong>Consumption Records</strong></li>
+                            <li>Creation and validation of <strong>Consumption Units</strong></li>
+                            <li>Generation of <strong>Tribute Drafts</strong> post-World Wide Day cycles.</li>
+                        </ul>
+                        <p>CU is submitted on L2 by CRA, and checked on L2 for duplication. If CU is accepted by network it will be included in the Tribute Draft for the period of worldwide day reflecting consolidated user's consumption.</p>
+                        <p>The event of CU validation and creation on L2 is considered as CU is accepted on the network and is ready for further consolidation in Tribute Draft.</p>
+                        <p>Mechanics of CU creation and submission logic is defined in <a href="https://docs.proton.me/doc?mode=open&volumeId=P5wh1vdgaawJbCdPy7evSIxi-J-szT9CUKEmFo7jWuIqNtK8LPRSVLFeAAE58J2gGwHUsHX-CU6VbFvhoHfoUQ%3D%3D&linkId=QP7_54gfi12QVWpGhooKqfu8n0rQ1HiygLAc8GX3IC8-iptQNQzlRwDOhD6KtecaL2YTT96uHkPM56KvEUQO4Q%3D%3D" class="underline hover:text-blue-600">CRA: Consumption Unit Generation</a> document.</p>
+                        <p>The event of Tribute Draft validation and creation on L2 is considered as an consolidated record of user's consumption and is ready for submission for Wallet App in a form of original <a href="https://docs.proton.me/doc?type=doc&mode=open&volumeId=_ioL_Myj62VSTckaDimt1FXOeTqRC0msMB5NHA5niozAWuYhLkl-sBD6vpZE3hCEoFKXVhqVjzR228D8mdFasw%3D%3D&linkId=3yS3DPk6QDYUbfLrbW2ye2O6sf_uBb8yzEYipPUC4bX8wz2VuQOr4YSMcmY4W9-i0B_YxNfDtLIyamJY0Q66WQ%3D%3D" class="underline hover:text-blue-600">Tribute</a>, then it has to be signed and sent via Wallet App to L1.</p>
+                        <p>If the original <a href="https://docs.proton.me/doc?type=doc&mode=open&volumeId=_ioL_Myj62VSTckaDimt1FXOeTqRC0msMB5NHA5niozAWuYhLkl-sBD6vpZE3hCEoFKXVhqVjzR228D8mdFasw%3D%3D&linkId=3yS3DPk6QDYUbfLrbW2ye2O6sf_uBb8yzEYipPUC4bX8wz2VuQOr4YSMcmY4W9-i0B_YxNfDtLIyamJY0Q66WQ%3D%3D" class="underline hover:text-blue-600">Tribute</a> is accepted by L1 and created on the network, the Tribute Draft is considered as utilized.</p>
+                        
+                        <div class="overflow-x-auto mb-4">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Object</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tribute Draft</td>
+                                        <td>Created, Utilized</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">4. Attributes</h2>
+                        <p>Tribute Draft on the Network should have the following attributes:</p>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Field Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>tribute_draft_id</code></td>
+                                        <td>string</td>
+                                        <td>Unique Tribute Draft identifier</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>created_at</code></td>
+                                        <td>string</td>
+                                        <td>ISO 8601 timestamp of when the Tribute Draft was created</td>
+                                        <td>2025-06-12T14:30:00Z</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>owner</code></td>
+                                        <td>string</td>
+                                        <td>User address on network</td>
+                                        <td>0x1234abcd5678ef901234abcd5678ef901234abcd</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>worldwide_date</code></td>
+                                        <td>string</td>
+                                        <td>Worldwide Day in ISO 8601 date format</td>
+                                        <td>2025-06-12</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>settlement_token</code></td>
+                                        <td>string</td>
+                                        <td>Settlement Token is used for account.</td>
+                                        <td>EUR</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>settlement_amount_minor</code></td>
+                                        <td>integer [10^6]</td>
+                                        <td>Value of the Tribute in Settlement Tokens</td>
+                                        <td><code>12500000</code> (represents $12.50 if minor = 10^6)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>nominal_qty_minor</code></td>
+                                        <td>integer [10^18]</td>
+                                        <td>Total nominal quantity in Coens</td>
+                                        <td><code>150000000</code> (represents 1.5 coen if minor = 10^8)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>cu_hashes</code></td>
+                                        <td>array</td>
+                                        <td>Ordered list of CU hashes included in the Tribute Draft</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">5. Commands</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Command</th>
+                                        <th>Arguments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>submit()</code></td>
+                                        <td>for each Tribute Draft<br><br>string owner,<br><br>string created_at,<br><br>string worldwide_date,<br><br>string settlement_token,<br><br>integer settlement_amount_minor<br><br>integer nominal_qty_minor,<br><br>string CRA signature hash<br><br>string CU checksum hash (to check uniqueness)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 class="font-semibold">6 Appendix</h2>
+                        <p>Tribute Draft Schema</p>
+
+                        <pre><code class="language-javascript">tribute_draft:
+  type: object
+  description: Represents the input fields used to compute the hash of Tribute Draft
+  required:
+	- tribute_draft_id
+    - created_at
+    - owner
+    - worldwide_date
+    - settlement_token
+    - settlement_amount_minor
+    - nominal_qty_minor
+    - state
+    - cu_hashes
+
+  properties:
+  
+  	tribute_draft_id:
+      type: string
+      description: Unique Tribute Draft identifier
+      
+    created_at:
+      type: string
+      format: date-time
+      description: ISO 8601 timestamp of when the Tribute Draft was created and submitted to L2
+      
+    owner:
+      type: string
+      description: Network address associated with the owner
+      
+    worldwide_date:
+      type: string
+      format: date
+      description: Worldwide Day in ISO 8601 date format
+
+
+    settlement_token:
+      type: string
+      description: Token used for settlement (e.g., "USD", "EUR", "GBP", "CNY", "JPY", "HKD")
+
+    settlement_amount_minor:
+      type: integer [10^6]
+      description: Value of the Tribute in Settlement Tokens
+      example: 1200.67 tokens = 1200670000 (assuming 1 token = 1,000,000 microtokens)
+
+     nominal_qty_minor:
+       type: integer[10^18]
+       description: Value of the Tribute Draft in Coens
+       example: 200
+       
+     state:
+     	type: string
+      	enum:
+        - accepted
+        - utilized
+      	description: State of the Tribute Draft
+
+    cu_hashes:
+      type: array
+      items:
+        type: string
+      description: Ordered list of CU hashes included in the Tribute Draft</code></pre>
+                    </div>
+                </div>
+                
+                <div class="text-sm font-light mt-10 flex justify-center space-x-6"> 
+                    <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

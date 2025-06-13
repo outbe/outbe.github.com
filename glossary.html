@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <title>Glossary - outbe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+                ubuntuMono: ['"Ubuntu Mono"', 'monospace'],
+              }
+            }
+          }
+        }
+      </script>
+
+    <style>
+        p {
+            max-width: 70ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            margin-bottom: 1rem !important;
+            
+        }
+        h1 {
+            margin-bottom: 1rem !important;
+        }
+        h2 {
+            font-size: 1.3rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h3 {
+            font-size: 1.2rem !important;
+            margin-bottom: 1rem !important;
+        }
+        h4 {
+            font-size: 1.1rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .formula {
+            font-style: italic;
+            margin: 1em 0;
+        }
+
+        li {
+            margin-left: 1em;
+            margin-bottom: 0.5em;
+            max-width: 70ch; 
+            white-space: pre-wrap;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 1rem 0;
+            max-width: 70ch; 
+            line-height: 1.4rem; 
+            white-space: pre-wrap;
+            font-size: 0.8rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            max-width: 70ch; 
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            max-width: 70ch; 
+        }
+
+        .glossary-term {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+           
+        }
+
+        .glossary-definition {
+            line-height: 1.4rem; 
+            max-width: 90ch; 
+            white-space: pre-wrap;
+            margin-bottom: 1rem !important;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FDFCFB] p-6 text-black font-inter min-h-screen">
+    <div class="grid gap-4 min-h-screen">
+        <!-- Sidebar - Horizontal on mobile, vertical on desktop -->
+        <aside class="w-full md:w-1/5 p-4 md:p-6 md:fixed md:left-0 md:top-5">
+            <nav class="flex md:flex-col items-center md:items-start justify-center md:justify-start space-x-6 md:space-x-0 md:space-y-4 text-sm font-light">                
+                <a href="/" class="hover:underline">Home</a>
+                <div>Documentation:</div>
+                <ul class="list-disc pl-6">
+                    <li><a href="/glossary.html" class="hover:underline">Glossary</a></li>
+                    <li><a href="/consumption_unit.html" class="hover:underline">Consumption Unit (CRA)</a></li>
+                    <li><a href="/tribute_draft.html" class="hover:underline">Tribute Draft</a></li>
+                    <li><a href="/tribute.html" class="hover:underline">Tribute</a></li>
+                    <li><a href="/cra.html" class="hover:underline">CRA rewards</a></li>
+                </ul>
+                <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                <a href="https://github.com/outbe" class="hover:underline">Github</a>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <div class="p-4 md:ml-24 md:mr-10 mt-6 md:mt-0 flex justify-center max-width">
+            <div>
+                <div>
+                    <h1 class="text-4xl sm:text-4xl font-light leading-none mb-12">Glossary</h1>
+                    <div class="text-base sm:text-base leading-relaxed font-inter font-light">
+                        <!-- Glossary Terms -->
+                        <div class="glossary-term"><strong>Account</strong></div>
+                        <div class="glossary-definition">is an entity on Network that holds and transfers Stable Tokens and Native Coins and interacts with smart contracts. Each Account has a unique Account Address and may optionally have a Universal Account Number (UAN). The UAN acts as a user-friendly alias for the Account Address, simplifying transactions. Transactions from an Account require a digital signature using the associated Private Key.</div>
+
+                        <div class="glossary-term"><strong>Account Address</strong></div>
+                        <div class="glossary-definition">is a unique identifier assigned to an Account on Network, derived from the Public Key. It is used to send and receive Stable Tokens and Native Coins and to interact with smart contracts.</div>
+
+                        <div class="glossary-term"><strong>Act of Consumption</strong></div>
+                        <div class="glossary-definition">is a User's purchase of physical or digital goods or services.</div>
+
+                        <div class="glossary-term"><strong>Consumption Record</strong></div>
+                        <div class="glossary-definition">is an Act of Consumption capturing its economic value expressed in Settlement Token. A Consumption Record is created for every Act of Consumption imported from verified external sources, such as Open Banking and/or financial institutions. Consumption Records are aggregated daily into Consumption Units per bank account, forming the basis for Tribute issuance.</div>
+
+                        <div class="glossary-term"><strong>Consumption Reflection Agent</strong></div>
+                        <div class="glossary-definition">is a regulated entity responsible for retrieving, verifying, and posting transaction data. CRAs generate Consumption Units by aggregating a Consumption Records and confirming their legitimacy. They act as the bridge between traditional financial systems and the network's on-chain value creation.</div>
+
+                        <div class="glossary-term"><strong>Consumption Unit</strong></div>
+                        <div class="glossary-definition">is an entity representing a batch of Consumption Records aggregated daily per bank account. Each Consumption Unit qualifies as a whole for Tribute issuance and serves as the basis for Tribute allocation.</div>
+
+                        <div class="glossary-term"><strong>Day</strong></div>
+                        <div class="glossary-definition">is defined as a 24-hour period based on Coordinated Universal Time (UTC), beginning at 00:00 UTC and ending at 23:59:59 UTC.</div>
+
+                        <div class="glossary-term"><strong>Epoch</strong></div>
+                        <div class="glossary-definition">is a fixed, continuous interval on the Network consisting of a defined number of consecutive blocks, aligned with the <strong>Worldwide Day</strong>—a 50-hour period covering all global time zones. Epochs structure Network operations, including Validator selection, Tribute allocation, and protocol updates, providing regular checkpoints for consensus and governance activities on a globally synchronised schedule.</div>
+
+                        <div class="glossary-term"><strong>Green Day</strong></div>
+                        <div class="glossary-definition">is the day when the Closing Price is equal to or higher than the Opening Price</div>
+
+                        <div class="glossary-term"><strong>Layer 1 (L1)</strong></div>
+                        <div class="glossary-definition">is the foundational public blockchain layer within Network, offering immutability, transparency, and decentralised security. It ensures transactions are recorded permanently, cannot be altered, and can be independently audited by anyone.</div>
+
+                        <div class="glossary-term"><strong>Minting Native Coins</strong></div>
+                        <div class="glossary-definition">is the process of creating new Native Coins on Network. Minting occurs through Tributes, Intents and as rewards for Validators and CRA in exchange for maintaining Network security. All minted coins, regardless of their purpose, are strictly governed by the Emission Limit rules.</div>
+
+                        <div class="glossary-term"><strong>Native Coin [COEN]</strong></div>
+                        <div class="glossary-definition">is a digital asset on Network whose value directly reflects Users' economic activities. Native Coins are minted strictly according to Emission Limit rules and are tradable freely on Exchanges.</div>
+
+                        <div class="glossary-term"><strong>Nod</strong></div>
+                        <div class="glossary-definition">is a core feature of the network, it is recognition of Tribute by Network. If market conditions will play in good way, and all conditions of Nod will be fulfilled Gratis will be minted on account, a soul-bound fungible token. These mintings are based on verified economic activity—accepted as Tributes—and are recognised through the Nod Protocol.</div>
+
+                        <div class="glossary-term"><strong>Red Day</strong></div>
+                        <div class="glossary-definition">is the day when the Closing Price is lower than the Opening Price</div>
+
+                        <div class="glossary-term"><strong>Settlement Token</strong></div>
+                        <div class="glossary-definition">is a Stable Token specifically approved through Governance Protocol for settlement purposes on Network. Network supports multiple Stable Tokens, but only a limited subset of these are designated as Settlement Tokens.</div>
+
+                        <div class="glossary-term"><strong>Stable Token</strong></div>
+                        <div class="glossary-definition">is a digital asset on the Network designed to maintain a fixed value by being pegged to a fiat currency. It is used for transfers, settlements, and collateral, ensuring consistent and predictable value across transactions within the Network (USD, EUR, GBP, CNY, JPY, HKD).</div>
+
+                        <div class="glossary-term"><strong>Tribute</strong></div>
+                        <div class="glossary-definition">is an option granting Users the right to mint Gratis, determined by the economic value captured from their Consumption Units. When a Tribute is Issued, it uses data from these Consumption Units to define specific conditions and attributes required for Gratis minting.</div>
+
+                        <div class="glossary-term"><strong>Tribute Allocation Pool</strong></div>
+                        <div class="glossary-definition">is the portion of the Emission Limit allocated for minting Native Coins through Tributes, based on verified Consumption Units planted by Users. It reflects real economic activity on the Network.</div>
+
+                        <div class="glossary-term"><strong>Tribute Nominal Price (TNP)</strong></div>
+                        <div class="glossary-definition">is the Price of Native Coin, expressed in Settlement Token, calculated at the moment a Tribute is Issued as Consumption Value / Tribute Nominal Qty. It establishes the baseline for calculating Tribute attributes and price thresholds within the Tribute Issuance Protocol.</div>
+
+                        <div class="glossary-term"><strong>Tribute Nominal Qty (TNQ)</strong></div>
+                        <div class="glossary-definition">is the quantity of Native Coins representing Consumption Value when Tribute is Issued.</div>
+
+                        <div class="glossary-term"><strong>Price Floor (GPF)</strong></div>
+                        <div class="glossary-definition">is the minimum Price, expressed in Settlement Token, that Native Coin must reach or exceed to allow a Tribute to transition from Qualified to Claimable. It is calculated using the Tribute Price Threshold and the Performance Rate selected by the User during Tribute allocation.</div>
+
+                        <div class="glossary-term"><strong>User</strong></div>
+                        <div class="glossary-definition">is a person or legal entity participating on Network by engaging in transactions, receiving Tributes, minting Native Coins, and contributing to overall Network economic activity.</div>
+
+                        <div class="glossary-term"><strong>Validator</strong></div>
+                        <div class="glossary-definition">is a User who maintains Network's infrastructure by operating nodes to validate transactions and secure the blockchain. Validators participate in consensus, enforce compliance with protocols, and engage in governance decisions. To become a Validator, Users must stake a defined amount of Native Coins (Validator Deposit). Validators earn newly minted Native Coins as rewards for their work.</div>
+
+                        <div class="glossary-term"><strong>Wallet</strong></div>
+                        <div class="glossary-definition">is a digital tool on Network that securely stores and manages cryptographic keys. It doesn't hold digital assets themselves but provides Users with secure access to their assets on Network, enabling Users to send, receive, and manage Native Coins and Stable Tokens (including Settlement Tokens). Each Wallet manages a Private Key, which authorises transactions and generates the Public Key used to derive the Account Address.</div>
+
+                        <div class="glossary-term"><strong>Worldwide Day</strong></div>
+                        <div class="glossary-definition">is a 50-hour period that spans all global time zones, from UTC+14 to UTC−12. It is used as the standard temporal unit for synchronising Epochs, network operations, and global activity across the Network.</div>
+                    </div>
+                </div>
+                
+                <div class="text-sm font-light mt-10 flex justify-center space-x-6"> 
+                    <a href="https://discord.gg/78twfgkT" class="hover:underline">Discord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
